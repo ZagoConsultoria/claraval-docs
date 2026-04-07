@@ -1,91 +1,91 @@
-# PRD: Claraval App - Plataforma de Gestao Escolar
+# PRD: Claraval App - Plataforma de Gestão Escolar
 
-## Introducao
+## Introdução
 
-A Claraval e uma consultoria de educacao que forma gestores de escolas na parte gerencial e administrativa. A empresa utiliza uma metodologia propria baseada em 5 pilares (Estrategia, Governanca, Metodo CLA, Pessoas e Resultados) para diagnosticar e melhorar a gestao das instituicoes de ensino.
+A Claraval é uma consultoria de educação que forma gestores de escolas na parte gerencial e administrativa. A empresa utiliza uma metodologia própria baseada em 5 pilares (Estratégia, Governança, Método CLA, Pessoas e Resultados) para diagnosticar e melhorar a gestão das instituições de ensino.
 
-Este PRD descreve a reconstrucao completa do MVP existente (desenvolvido no Base44), criando uma plataforma robusta que permita:
+Este PRD descreve a reconstrução completa do MVP existente (desenvolvido no Base44), criando uma plataforma robusta que permita:
 
-- Aplicar diagnosticos gerenciais nas escolas clientes
-- Gerar planos de acao baseados nas lacunas identificadas
-- Disponibilizar ferramentas de gestao (templates, scores, checklists)
+- Aplicar diagnósticos gerenciais nas escolas clientes
+- Gerar planos de ação baseados nas lacunas identificadas
+- Disponibilizar ferramentas de gestão (templates, scores, checklists)
 - Oferecer trilhas de conhecimento (e-learning) personalizadas
-- Acompanhar a evolucao trimestral dos clientes
+- Acompanhar a evolução trimestral dos clientes
 - Padronizar e escalar a entrega da consultoria
 
-### Contexto de Negocio
+### Contexto de Negócio
 
-**Tres tipos de contrato:**
+**Três tipos de contrato:**
 
-- **Start**: Plano de entrada — ciclo de **3 meses**. Diagnostico completo nos 5 pilares, mas mentorias, ferramentas e e-learning restritos a apenas 1 pilar escolhido pela escola.
-- **Club**: Contrato de **12 meses**, visao sistemica/generalista da escola como um todo. Acesso total a todos os 5 pilares.
-- **Corp**: Contrato de **12 meses**, inclui tudo do Club + consultoria hands-on em um setor especifico da escola (Comercial, Financeiro, Sucesso do Aluno, etc.).
+- **Start**: Plano de entrada — ciclo de **3 meses**. Diagnóstico completo nos 5 pilares, mas mentorias, ferramentas e e-learning restritos a apenas 1 pilar escolhido pela escola.
+- **Club**: Contrato de **12 meses**, visão sistêmica/generalista da escola como um todo. Acesso total a todos os 5 pilares.
+- **Corp**: Contrato de **12 meses**, inclui tudo do Club + consultoria hands-on em um setor específico da escola (Comercial, Financeiro, Sucesso do Aluno, etc.).
 
-**Beneficios inclusos em todos os contratos:**
+**Benefícios inclusos em todos os contratos:**
 
 - Grupo de WhatsApp exclusivo com a equipe Claraval
-- Botao de emergencia para suporte imediato
-- Acesso as aulas ao vivo semanais
+- Botão de emergência para suporte imediato
+- Acesso às aulas ao vivo semanais
 
 **Regras do contrato Start:**
 
-- O pilar e identificado por UUID (`selectedPillarId`) na entidade School
-- O diagnostico e feito completo (todos os pilares, perguntas targetAudience AMBOS)
-- O acesso a conteudo e restrito ao pilar selecionado
-- Trilhas bloqueadas aparecem com icone de cadeado
-- No dashboard, so aparecem videos do pilar permitido
-- No plano de acao, ferramentas/aulas fora do pilar aparecem bloqueadas
+- O pilar é identificado por UUID (`selectedPillarId`) na entidade School
+- O diagnóstico é feito completo (todos os pilares, perguntas targetAudience AMBOS)
+- O acesso a conteúdo é restrito ao pilar selecionado
+- Trilhas bloqueadas aparecem com ícone de cadeado
+- No dashboard, só aparecem vídeos do pilar permitido
+- No plano de ação, ferramentas/aulas fora do pilar aparecem bloqueadas
 
 **Ciclo de trabalho:**
 
-- Start: 3 meses (1 diagnostico + acompanhamento focado em 1 pilar)
-- Club/Corp: 12 meses com diagnostico trimestral
+- Start: 3 meses (1 diagnóstico + acompanhamento focado em 1 pilar)
+- Club/Corp: 12 meses com diagnóstico trimestral
 - Mentorias e encontros semanais (todos os contratos)
-- Reunioes de resultados trimestrais (Club e Corp)
+- Reuniões de resultados trimestrais (Club e Corp)
 
 ### Metodologia — Os 5 Pilares
 
-**1. Estrategia** — Clareza de proposito e direcionamento. Mapa estrategico, BSC, Missao/Visao/Valores, rituais de gestao.
+**1. Estratégia** — Clareza de propósito e direcionamento. Mapa estratégico, BSC, Missão/Visão/Valores, rituais de gestão.
 
-**2. Governanca** — Processos e rotinas que sustentam a operacao. Mapeamento de processos, maturidade tecnologica, matriz de produtos internos.
+**2. Governança** — Processos e rotinas que sustentam a operação. Mapeamento de processos, maturidade tecnológica, matriz de produtos internos.
 
-**3. Metodo CLA** — Da atracao do lead a retencao da familia:
+**3. Método CLA** — Da atração do lead à retenção da família:
 
-- 3.1 Branding e Atracao: Presenca digital, posicionamento competitivo
-- 3.2 Comercial: Funil de matriculas, follow-up, gestao a vista
-- 3.3 Sucesso do Cliente: NPS, jornada do aluno, KPIs de retencao
+- 3.1 Branding e Atração: Presença digital, posicionamento competitivo
+- 3.2 Comercial: Funil de matrículas, follow-up, gestão à vista
+- 3.3 Sucesso do Cliente: NPS, jornada do aluno, KPIs de retenção
 
-**4. Pessoas** — Liderancas fortes, times alinhados. Organograma funcional, rotinas de lideranca, PDI.
+**4. Pessoas** — Lideranças fortes, times alinhados. Organograma funcional, rotinas de liderança, PDI.
 
-**5. Resultados** — Dados que viram decisoes. Arvore de KPIs, OKRs trimestrais, dashboards.
+**5. Resultados** — Dados que viram decisões. Árvore de KPIs, OKRs trimestrais, dashboards.
 
 !!! note "Nomenclatura"
-    No codigo, "Experiencia do Cliente" (antiga) = **Metodo CLA**. "Processos" (antiga) = **Governanca**.
+    No código, "Experiência do Cliente" (antiga) = **Método CLA**. "Processos" (antiga) = **Governança**.
 
 ---
 
 ## Goals
 
-- Centralizar toda a gestao do contrato cliente em unica plataforma
-- Diagnostico gerencial completo baseado nos 5 pilares
-- Gerar automaticamente planos de acao a partir das lacunas
-- Ferramentas de gestao digitais (substituindo Excel/Word)
+- Centralizar toda a gestão do contrato cliente em única plataforma
+- Diagnóstico gerencial completo baseado nos 5 pilares
+- Gerar automaticamente planos de ação a partir das lacunas
+- Ferramentas de gestão digitais (substituindo Excel/Word)
 - Trilhas de conhecimento segmentadas por pilar e tamanho
-- Acompanhar evolucao da nota de maturidade ao longo do tempo
+- Acompanhar evolução da nota de maturidade ao longo do tempo
 - Padronizar e escalar a entrega da consultoria
 
 ---
 
 ## Non-Goals (Fora do Escopo)
 
-- Criacao de ferramentas pelo Admin via interface (feito por dev)
-- Integracao com Google Calendar
-- App mobile nativo (plataforma e web responsiva)
+- Criação de ferramentas pelo Admin via interface (feito por dev)
+- Integração com Google Calendar
+- App mobile nativo (plataforma é web responsiva)
 - Chat/mensagens internas (usa WhatsApp)
 - Pagamentos/faturamento
-- Modulo pedagogico (foco e gestao administrativa)
+- Módulo pedagógico (foco é gestão administrativa)
 - Multi-idioma (apenas pt-BR)
-- Integracoes com ERPs escolares
+- Integrações com ERPs escolares
 
 ---
 
@@ -93,16 +93,16 @@ Este PRD descreve a reconstrucao completa do MVP existente (desenvolvido no Base
 
 ### Identidade Visual
 
-- Amarelo/dourado como cor primaria, azul escuro como secundaria
+- Amarelo/dourado como cor primária, azul escuro como secundária
 - Logo Claraval no header
 - Design limpo e profissional
 
 ### UX/UI
 
 - Dashboard como ponto central
-- Menu superior: Home, Diagnosticos, Ferramentas, E-Learning
+- Menu superior: Home, Diagnósticos, Ferramentas, E-Learning
 - Cards para listagens
-- Grafico radar para diagnostico
+- Gráfico radar para diagnóstico
 - Desktop-first, responsivo para tablets
 
 ### Modelo de Dados (Entidades Principais)
@@ -125,12 +125,12 @@ Este PRD descreve a reconstrucao completa do MVP existente (desenvolvido no Base
 
 ## Success Metrics
 
-- **Adocao:** 100% dos clientes usando em ate 30 dias
-- **Diagnostico:** Tempo medio < 45 minutos
+- **Adoção:** 100% dos clientes usando em até 30 dias
+- **Diagnóstico:** Tempo médio < 45 minutos
 - **Engajamento:** Taxa de login semanal > 70%
-- **Ferramentas:** Media de 3+ preenchidas por cliente/mes
-- **E-Learning:** 50%+ dos videos recomendados assistidos/trimestre
-- **Satisfacao:** NPS > 50
+- **Ferramentas:** Média de 3+ preenchidas por cliente/mês
+- **E-Learning:** 50%+ dos vídeos recomendados assistidos/trimestre
+- **Satisfação:** NPS > 50
 
 ---
 

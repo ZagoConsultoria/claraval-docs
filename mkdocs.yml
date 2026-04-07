@@ -47,7 +47,7 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.highlight:
@@ -60,21 +60,21 @@ markdown_extensions:
       permalink: true
 
 nav:
-  - Inicio: index.md
+  - Início: index.md
   - PRD: prd.md
   - Arquitetura:
-      - Visao Geral: arquitetura/visao-geral.md
+      - Visão Geral: arquitetura/visao-geral.md
       - Frontend: arquitetura/frontend.md
       - Backend: arquitetura/backend.md
       - Banco de Dados: arquitetura/banco-de-dados.md
       - Infraestrutura: arquitetura/infraestrutura.md
   - API:
-      - Visao Geral: api/index.md
-      - Autenticacao: api/autenticacao.md
+      - Visão Geral: api/index.md
+      - Autenticação: api/autenticacao.md
       - Escolas: api/escolas.md
-      - Usuarios: api/usuarios.md
-      - Diagnostico: api/diagnostico.md
-      - Plano de Acao: api/plano-de-acao.md
+      - Usuários: api/usuarios.md
+      - Diagnóstico: api/diagnostico.md
+      - Plano de Ação: api/plano-de-acao.md
       - Ferramentas: api/ferramentas.md
       - E-Learning: api/elearning.md
       - Documentos: api/documentos.md
@@ -84,13 +84,13 @@ nav:
   - Requisitos:
       - User Stories: requisitos/user-stories.md
       - Requisitos Funcionais: requisitos/requisitos-funcionais.md
-      - Debito Tecnico: requisitos/debito-tecnico.md
-      - Jornadas de Usuario: requisitos/jornadas-usuario.md
-  - Padroes:
+      - Débito Técnico: requisitos/debito-tecnico.md
+      - Jornadas de Usuário: requisitos/jornadas-usuario.md
+  - Padrões:
       - Frontend: padroes/frontend.md
       - Backend: padroes/backend.md
       - Git e CI/CD: padroes/git-ci.md
   - Onboarding:
       - Setup Frontend: onboarding/setup-frontend.md
       - Setup Backend: onboarding/setup-backend.md
-      - Glossario: onboarding/glossario.md
+      - Glossário: onboarding/glossario.md

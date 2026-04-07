@@ -1,13 +1,13 @@
-# API - Diagnostico
+# API - Diagnóstico
 
-## Configuracao (Admin)
+## Configuração (Admin)
 
 **Prefixo:** `/diagnostics/config`
-**Autenticacao:** `ROLE_ADMIN`
+**Autenticação:** `ROLE_ADMIN`
 
 ### GET /diagnostics/config/pillars
 
-Retorna todos os pilares com eixos e perguntas (estrutura completa do diagnostico).
+Retorna todos os pilares com eixos e perguntas (estrutura completa do diagnóstico).
 
 ### POST /diagnostics/config/pillars
 
@@ -64,20 +64,20 @@ Duplica pergunta existente.
 ## Metodologia (Leitura)
 
 **Prefixo:** `/methodology`
-**Autenticacao:** Requerida
+**Autenticação:** Requerida
 
 ### GET /methodology/pillars
 
-Retorna pilares com eixos (sem perguntas — visao da metodologia para o usuario).
+Retorna pilares com eixos (sem perguntas — visão da metodologia para o usuário).
 
-## Execucao do Diagnostico
+## Execução do Diagnóstico
 
 **Prefixo:** `/diagnostics`
-**Autenticacao:** Requerida
+**Autenticação:** Requerida
 
 ### POST /diagnostics/iniciar
 
-Inicia novo diagnostico para a escola.
+Inicia novo diagnóstico para a escola.
 
 **Request:**
 
@@ -89,11 +89,11 @@ Inicia novo diagnostico para a escola.
 
 ### GET /diagnostics/escola/{escolaId}
 
-Lista todos os diagnosticos da escola (historico).
+Lista todos os diagnósticos da escola (histórico).
 
 ### GET /diagnostics/{id}
 
-Retorna diagnostico com todas as respostas.
+Retorna diagnóstico com todas as respostas.
 
 ### POST /diagnostics/{id}/responder
 
@@ -111,15 +111,39 @@ Salva resposta de uma pergunta.
 
 ### PATCH /diagnostics/{id}/finalizar
 
-Finaliza o diagnostico. Calcula notas e gera plano de acao automaticamente.
+Finaliza o diagnóstico. Calcula notas e gera plano de ação automaticamente.
 
-**Response:** Diagnostico finalizado com notas por pilar e nota geral.
+**Response:** Diagnóstico finalizado com notas por pilar e nota geral.
 
 ### GET /diagnostics/{id}/resultados
 
 Retorna resultados detalhados (notas por pilar, eixo, gráfico radar).
 
-## Fluxo do Diagnostico
+**Response (200):**
+
+```json
+{
+  "diagnosticId": "uuid",
+  "overallScore": 3.2,
+  "pillarScores": [
+    { "pillarId": "uuid", "pillarName": "Estratégia", "score": 3.5 },
+    { "pillarId": "uuid", "pillarName": "Governança", "score": 2.8 }
+  ],
+  "clusterBenchmark": {
+    "cluster": "DE_300_A_500",
+    "schoolCount": 12,
+    "overallAverage": 3.6,
+    "pillarAverages": [
+      { "pillarId": "uuid", "pillarName": "Estratégia", "average": 3.8 },
+      { "pillarId": "uuid", "pillarName": "Governança", "average": 3.1 }
+    ]
+  }
+}
+```
+
+O campo `clusterBenchmark` contém a média de notas de todas as escolas do mesmo cluster que a escola do diagnóstico. O frontend exibe essas médias como uma segunda linha no gráfico radar, permitindo que a escola se compare com seus pares.
+
+## Fluxo do Diagnóstico
 
 ```mermaid
 sequenceDiagram
@@ -140,11 +164,13 @@ sequenceDiagram
     B->>A: Diagnostic (status: FINALIZADO, scores)
 ```
 
-## Regras de Negocio
+## Regras de Negócio
 
 - Perguntas filtradas por `targetAudience` de acordo com o tipo de contrato da escola
 - Perguntas `AMBOS` aparecem para todos os contratos
-- Nota geral = media ponderada das notas dos pilares
-- Nota do pilar = media das notas dos eixos
-- Nota do eixo = media dos niveis respondidos nas perguntas
-- Diagnosticos ja respondidos nao sao afetados por alteracoes nas perguntas (versionamento)
+- Nota geral = média ponderada das notas dos pilares
+- Nota do pilar = média das notas dos eixos
+- Nota do eixo = média dos níveis respondidos nas perguntas
+- Diagnósticos já respondidos não são afetados por alterações nas perguntas (versionamento)
+- Resultados incluem benchmark de cluster: média de notas de escolas do mesmo `Cluster` (enum) sobrepostas no radar
+- Benchmark calcula apenas diagnósticos finalizados de escolas ativas do mesmo cluster

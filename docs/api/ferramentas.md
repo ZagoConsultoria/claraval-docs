@@ -1,25 +1,25 @@
 # API - Ferramentas
 
 **Prefixo:** `/tools`
-**Autenticacao:** Requerida
+**Autenticação:** Requerida
 
 ## Tipos de Ferramentas
 
-| Tipo | Descricao |
+| Tipo | Descrição |
 |------|-----------|
-| `TEMPLATE` | Formulario estruturado para documentar informacoes (ex: Mapa Estrategico BSC) |
-| `SCORE` | Auto-avaliacao com calculo de nota/score (ex: Check de Posicionamento Competitivo) |
+| `TEMPLATE` | Formulário estruturado para documentar informações (ex: Mapa Estratégico BSC) |
+| `SCORE` | Auto-avaliação com cálculo de nota/score (ex: Check de Posicionamento Competitivo) |
 | `CHECKLIST` | Lista de itens com checkbox e progresso (ex: Jornada do Aluno) |
 
 ## Endpoints
 
 ### GET /tools
 
-Lista ferramentas disponiveis para a escola do usuario.
+Lista ferramentas disponíveis para a escola do usuário.
 
 **Query params:**
 
-| Param | Tipo | Descricao |
+| Param | Tipo | Descrição |
 |-------|------|-----------|
 | `pillar` | string | Filtro por pilar |
 | `type` | string | TEMPLATE, SCORE, CHECKLIST |
@@ -43,7 +43,7 @@ Lista ferramentas disponiveis para a escola do usuario.
 
 ### GET /tools/{id}
 
-Retorna detalhes da ferramenta com configuracao completa.
+Retorna detalhes da ferramenta com configuração completa.
 
 ### POST /tools
 
@@ -61,11 +61,11 @@ Ativa/desativa ferramenta. **Admin only.**
 
 ### GET /tools/{id}/submissions?escolaId={escolaId}
 
-Lista preenchimentos da escola para uma ferramenta (historico de versoes).
+Lista preenchimentos da escola para uma ferramenta (histórico de versões).
 
 ### POST /tools/{id}/submissions
 
-Salva preenchimento (cria nova versao).
+Salva preenchimento (cria nova versão).
 
 **Request:**
 
@@ -86,9 +86,9 @@ Salva preenchimento (cria nova versao).
 
 Exporta preenchimento em PDF.
 
-## Regras de Negocio
+## Regras de Negócio
 
-- Liberacao hibrida: tipo de contrato define set base + admin pode liberar/bloquear por escola
-- Preenchimentos sao versionados (novo submit cria nova versao, nao sobrescreve)
+- Liberação híbrida: tipo de contrato define set base + admin pode liberar/bloquear por escola
+- Preenchimentos são versionados (novo submit cria nova versão, não sobrescreve)
 - Auto-save no frontend via debounce de 2 segundos
-- Campo `config` contem a estrutura do formulario (JSON schema)
+- Campo `config` contém a estrutura do formulário (JSON schema)

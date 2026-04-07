@@ -1,7 +1,7 @@
 # API - Live Streaming
 
 **Prefixo:** `/live`
-**Autenticacao:** Requerida (exceto HLS proxy)
+**Autenticação:** Requerida (exceto HLS proxy)
 
 ## Arquitetura
 
@@ -13,7 +13,7 @@ OBS Studio (RTMP :1935) → MediaMTX → HLS → Backend (proxy) → Frontend (h
 
 ### GET /live/status
 
-Retorna se ha live ativa.
+Retorna se há live ativa.
 
 **Response (200):**
 
@@ -26,9 +26,9 @@ Retorna se ha live ativa.
 
 ### GET /live/hls/{path}
 
-Proxy para o stream HLS do MediaMTX. **Publico** (autenticacao via frontend).
+Proxy para o stream HLS do MediaMTX. **Público** (autenticação via frontend).
 
-O backend faz proxy das requisicoes HLS para o MediaMTX, evitando expor o MediaMTX diretamente.
+O backend faz proxy das requisições HLS para o MediaMTX, evitando expor o MediaMTX diretamente.
 
 ### POST /admin/live/start
 
@@ -41,15 +41,15 @@ Marca a live como inativa. **Admin only.**
 ## Frontend
 
 - Player customizado com hls.js na identidade visual Claraval
-- Indicador "AO VIVO" na secao e-learning quando live ativa
+- Indicador "AO VIVO" na seção e-learning quando live ativa
 - Controles: play/pause, volume, fullscreen
-- Apenas usuarios autenticados podem acessar
+- Apenas usuários autenticados podem acessar
 
-## Configuracao do MediaMTX
+## Configuração do MediaMTX
 
-Arquivo `mediamtx.yml` na raiz do repositorio backend:
+Arquivo `mediamtx.yml` na raiz do repositório backend:
 
 - Recebe RTMP na porta 1935
 - Converte para HLS automaticamente
-- Capacidade: ~30 espectadores simultaneos
-- Gerenciado via NSSM como servico Windows
+- Capacidade: ~30 espectadores simultâneos
+- Gerenciado via NSSM como serviço Windows

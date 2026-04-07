@@ -2,89 +2,89 @@
 
 **SGBD:** PostgreSQL
 **Schema:** `claraval`
-**Migracoes:** Flyway (`src/main/resources/db/migration/`)
+**Migrações:** Flyway (`src/main/resources/db/migration/`)
 **ORM:** Spring Data JPA + Hibernate 6.6
 
 ## Entidades Principais
 
-### Autenticacao e Usuarios
+### Autenticação e Usuários
 
-| Entidade | Descricao |
+| Entidade | Descrição |
 |----------|-----------|
-| `Usuario` | Usuarios do sistema (admin ou cliente). Campos: nome, email, role, escola vinculada |
-| `Role` | Papeis: ROLE_ADMIN, ROLE_USER |
-| `TokenSessao` | Refresh tokens para manter sessao |
-| `TokenResetSenha` | Tokens de reset de senha com expiracao |
+| `Usuario` | Usuários do sistema (admin ou cliente). Campos: nome, email, role, escola vinculada |
+| `Role` | Papéis: ROLE_ADMIN, ROLE_USER |
+| `TokenSessao` | Refresh tokens para manter sessão |
+| `TokenResetSenha` | Tokens de reset de senha com expiração |
 | `AuditoriaLogin` | Log de tentativas de login |
 
 ### Escolas e Contratos
 
-| Entidade | Descricao |
+| Entidade | Descrição |
 |----------|-----------|
-| `School` | Escola cliente. Campos: nome, endereco, logo, contractType (CLUBE/CORP/START), cluster, selectedPillarId (START) |
+| `School` | Escola cliente. Campos: nome, endereço, logo, contractType (CLUBE/CORP/START), cluster, selectedPillarId (START) |
 
-### Diagnostico e Metodologia
+### Diagnóstico e Metodologia
 
-| Entidade | Descricao |
+| Entidade | Descrição |
 |----------|-----------|
 | `Pillar` | Os 5 pilares da metodologia |
 | `Axis` | Eixos dentro de cada pilar |
-| `Question` | Perguntas do diagnostico, vinculadas a um eixo |
-| `QuestionLevel` | Descricao de cada nivel (1-5) de cada pergunta |
-| `Diagnostic` | Diagnostico de uma escola (status, notas, data) |
-| `DiagnosticAnswer` | Resposta a uma pergunta (nivel selecionado, observacoes) |
+| `Question` | Perguntas do diagnóstico, vinculadas a um eixo |
+| `QuestionLevel` | Descrição de cada nível (1-5) de cada pergunta |
+| `Diagnostic` | Diagnóstico de uma escola (status, notas, data) |
+| `DiagnosticAnswer` | Resposta a uma pergunta (nível selecionado, observações) |
 
-### Plano de Acao
+### Plano de Ação
 
-| Entidade | Descricao |
+| Entidade | Descrição |
 |----------|-----------|
-| `ActionPlanItem` | Item do plano de acao (descricao, prioridade, status, pilar, eixo) |
-| `ActionPlanTemplate` | Template para geracao automatica de itens |
+| `ActionPlanItem` | Item do plano de ação (descrição, prioridade, status, pilar, eixo) |
+| `ActionPlanTemplate` | Template para geração automática de itens |
 
 ### Ferramentas
 
-| Entidade | Descricao |
+| Entidade | Descrição |
 |----------|-----------|
-| `Tool` | Ferramenta de gestao (tipo: TEMPLATE, SCORE, CHECKLIST) |
+| `Tool` | Ferramenta de gestão (tipo: TEMPLATE, SCORE, CHECKLIST) |
 | `ToolSubmission` | Preenchimento de uma ferramenta por escola (versionado, JSON) |
 
 ### E-Learning
 
-| Entidade | Descricao |
+| Entidade | Descrição |
 |----------|-----------|
-| `Video` | Video com titulo, descricao, pilar, cluster, provider |
-| `VideoProgress` | Progresso de visualizacao por usuario (PK composta: VideoProgressPK) |
+| `Video` | Vídeo com título, descrição, pilar, cluster, provider |
+| `VideoProgress` | Progresso de visualização por usuário (PK composta: VideoProgressPK) |
 | `Trail` | Trilha de aprendizado |
-| `TrailVideo` | Relacao N:N entre Trail e Video (com ordem) |
+| `TrailVideo` | Relação N:N entre Trail e Vídeo (com ordem) |
 
 ### Tarefas e Sprints
 
-| Entidade | Descricao |
+| Entidade | Descrição |
 |----------|-----------|
 | `Sprint` | Sprint da escola (nome, datas, tamanho, status) |
 | `Tarefa` | Tarefa vinculada a sprint ou plano CLA |
 | `Subtarefa` | Subtarefas dentro de uma tarefa |
-| `TarefaHistorico` | Historico de alteracoes de status |
+| `TarefaHistorico` | Histórico de alterações de status |
 
 ### Documentos
 
-| Entidade | Descricao |
+| Entidade | Descrição |
 |----------|-----------|
 | `Categoria` | Categoria de documento vinculada a um pilar |
 | `Arquivo` | Documento enviado pela escola |
 | `SharedDocument` | Documentos compartilhados (com folders) |
-| `DocumentFolder` | Pastas para organizacao de documentos |
+| `DocumentFolder` | Pastas para organização de documentos |
 
 ### Outros
 
-| Entidade | Descricao |
+| Entidade | Descrição |
 |----------|-----------|
 | `Banner` | Banners do carrossel do dashboard |
 | `Event` | Eventos/encontros agendados |
 | `Lead` | Leads capturados pela landing page |
-| `AppConfig` | Configuracoes gerais do app |
+| `AppConfig` | Configurações gerais do app |
 | `DiagnosticPriority` | Prioridades customizadas por tipo de contrato |
-| `DiagnosticSession` | Sessoes de preenchimento compartilhado |
+| `DiagnosticSession` | Sessões de preenchimento compartilhado |
 
 ## Diagrama ER Simplificado
 
@@ -95,28 +95,28 @@ erDiagram
     School ||--o{ Sprint : "tem"
     School ||--o{ ToolSubmission : "preenche"
 
-    Diagnostic ||--o{ DiagnosticAnswer : "contem"
+    Diagnostic ||--o{ DiagnosticAnswer : "contém"
     Diagnostic ||--o{ ActionPlanItem : "gera"
 
-    Pillar ||--o{ Axis : "contem"
-    Axis ||--o{ Question : "contem"
-    Question ||--o{ QuestionLevel : "tem niveis"
+    Pillar ||--o{ Axis : "contém"
+    Axis ||--o{ Question : "contém"
+    Question ||--o{ QuestionLevel : "tem níveis"
     Question ||--o{ DiagnosticAnswer : "respondida em"
 
     Trail ||--o{ TrailVideo : "agrupa"
     Video ||--o{ TrailVideo : "pertence a"
     Video ||--o{ VideoProgress : "progresso"
 
-    Sprint ||--o{ Tarefa : "contem"
+    Sprint ||--o{ Tarefa : "contém"
     Tarefa ||--o{ Subtarefa : "tem"
 
     Categoria ||--o{ Arquivo : "organiza"
 ```
 
-## Convencoes
+## Convenções
 
 - **IDs**: UUID em todas as entidades
 - **BaseEntity**: Classe base no pacote `newversion/model/` com campos comuns
 - **Toggleable**: Interface para entidades com campo `active` (uso com `EntityHelper.toggleActive()`)
 - **Schema**: Todas as tabelas no schema `claraval`
-- **Nomenclatura DB**: Colunas em portugues (legado), migrando para ingles no pacote `newversion`
+- **Nomenclatura DB**: Colunas em português (legado), migrando para inglês no pacote `newversion`

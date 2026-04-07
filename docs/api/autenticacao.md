@@ -1,6 +1,6 @@
-# API - Autenticacao
+# API - Autenticação
 
-Todos os endpoints de autenticacao sao **publicos** (nao requerem token).
+Todos os endpoints de autenticação são **públicos** (não requerem token).
 
 ## Endpoints
 
@@ -48,11 +48,11 @@ Login via Google OAuth. O frontend envia o `id_token` obtido da biblioteca Googl
 **Response:** Mesmo formato do `/auth/login`.
 
 !!! note "Nota"
-    O usuario deve estar pre-cadastrado no sistema. Login com Google nao cria conta automaticamente.
+    O usuário deve estar pré-cadastrado no sistema. Login com Google não cria conta automaticamente.
 
 ### POST /auth/register
 
-Registro de novo usuario (usado internamente pelo admin).
+Registro de novo usuário (usado internamente pelo admin).
 
 **Request:**
 
@@ -100,7 +100,7 @@ Invalida o refresh token.
 
 ### POST /auth/forgot-password
 
-Envia email com link de redefinicao de senha.
+Envia email com link de redefinição de senha.
 
 **Request:**
 
@@ -125,7 +125,7 @@ Redefine a senha usando token recebido por email.
 
 ### GET /auth/validate-reset-token?token={token}
 
-Valida se o token de reset ainda e valido.
+Valida se o token de reset ainda é válido.
 
 **Response (200):**
 
@@ -135,7 +135,7 @@ Valida se o token de reset ainda e valido.
 }
 ```
 
-## Fluxo de Autenticacao
+## Fluxo de Autenticação
 
 ```mermaid
 sequenceDiagram

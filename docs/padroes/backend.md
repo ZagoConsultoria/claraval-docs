@@ -1,21 +1,21 @@
-# Padroes Obrigatorios — Backend
+# Padrões Obrigatórios — Backend
 
-Regras extraidas do `CLAUDE.md` do repositorio [claraval-back](https://github.com/ZagoConsultoria/claraval-back).
+Regras extraídas do `CLAUDE.md` do repositório [claraval-back](https://github.com/ZagoConsultoria/claraval-back).
 
 ## Limites de Tamanho
 
 | Elemento | Limite |
 |----------|--------|
-| Dependencias injetadas por service | Max 5 |
-| Linhas por metodo | Max 40 |
+| Dependências injetadas por service | Max 5 |
+| Linhas por método | Max 40 |
 | Linhas por arquivo de service | Max ~250 |
 
-Se exceder dependencias, decompor em services menores.
+Se exceder dependências, decompor em services menores.
 
 ## Entity Lookup
 
 - **Proibido**: `new EntityNotFoundException("string literal")`
-- **Obrigatorio**: `EntityHelper.findOrThrow(repo, id, "NomeEntidade")`
+- **Obrigatório**: `EntityHelper.findOrThrow(repo, id, "NomeEntidade")`
 
 ```java
 // ERRADO
@@ -26,7 +26,7 @@ School school = schoolRepository.findById(id)
 School school = EntityHelper.findOrThrow(schoolRepository, id, "School");
 ```
 
-O `EntityHelper` esta em `app/util/EntityHelper.java`.
+O `EntityHelper` está em `app/util/EntityHelper.java`.
 
 ## Toggle de Ativo
 
@@ -35,12 +35,12 @@ Entidades com campo `active` devem:
 1. Implementar interface `Toggleable`
 2. Usar `EntityHelper.toggleActive(repo, id, "NomeEntidade")`
 
-Nao reimplementar logica de toggle manualmente.
+Não reimplementar lógica de toggle manualmente.
 
 ## Exception Handling
 
-- **Proibido**: `catch (Exception e)` generico (exceto infraestrutura I/O justificada)
-- **Obrigatorio**: catch de excecoes especificas
+- **Proibido**: `catch (Exception e)` genérico (exceto infraestrutura I/O justificada)
+- **Obrigatório**: catch de exceções específicas
 
 ```java
 // ERRADO
@@ -54,7 +54,7 @@ try { ... } catch (IOException e) { ... }
 ## Strings e Enums
 
 - **Proibido**: strings hardcoded para status (`"ASSISTIDO"`, `"EM_ANDAMENTO"`)
-- **Obrigatorio**: usar enums correspondentes
+- **Obrigatório**: usar enums correspondentes
 
 ```java
 // ERRADO
@@ -66,10 +66,10 @@ video.setStatus(VideoProgressStatus.ASSISTIDO);
 
 Constantes para paths repetidos (ex: `VIDEO_STREAM_PATH`).
 
-## Persistencia
+## Persistência
 
 - **Proibido**: `save()` em loop
-- **Obrigatorio**: `saveAll()` com colecao
+- **Obrigatório**: `saveAll()` com coleção
 
 ```java
 // ERRADO
@@ -83,12 +83,12 @@ itemRepository.saveAll(items);
 
 Queries com relacionamentos devem usar `JOIN FETCH` para evitar N+1.
 
-## Validacao
+## Validação
 
 - Todo `@RequestBody` em controller deve ter `@Valid`
-- DTOs devem ter anotacoes Jakarta:
-    - `@NotBlank` em nomes/titulos
-    - `@NotNull` em IDs obrigatorios
+- DTOs devem ter anotações Jakarta:
+    - `@NotBlank` em nomes/títulos
+    - `@NotNull` em IDs obrigatórios
     - `@Size` onde apropriado
 
 ```java
@@ -96,9 +96,9 @@ Queries com relacionamentos devem usar `JOIN FETCH` para evitar N+1.
 public ResponseEntity<?> create(@Valid @RequestBody CreateSchoolRequest request) { ... }
 ```
 
-## Autenticacao
+## Autenticação
 
-Controllers devem usar `@AuthenticationPrincipal UsuarioAutenticado` para obter usuario logado.
+Controllers devem usar `@AuthenticationPrincipal UsuarioAutenticado` para obter usuário logado.
 
 ```java
 @GetMapping("/perfil")
@@ -110,8 +110,8 @@ public ResponseEntity<?> getPerfil(
 
 ## Mapeamento DTO
 
-- Usar metodo `toResponse()` estatico no record DTO ou mapper dedicado
-- Nao converter manualmente em controllers
+- Usar método `toResponse()` estático no record DTO ou mapper dedicado
+- Não converter manualmente em controllers
 
 ```java
 public record SchoolResponse(UUID id, String name, ...) {
@@ -125,12 +125,12 @@ public record SchoolResponse(UUID id, String name, ...) {
 
 ```
 com.example.claravalback/
-├── app/util/              → utilitarios (EntityHelper, ChecksumUtil)
+├── app/util/              → utilitários (EntityHelper, ChecksumUtil)
 ├── newversion/model/      → entidades JPA + Toggleable
 ├── newversion/model/enums → enums de status/tipo
-├── newversion/service/    → regras de negocio (max 5 deps, max 250 linhas)
-├── newversion/controller/ → endpoints REST (@Valid obrigatorio)
-└── newversion/dto/        → records com validacao Jakarta
+├── newversion/service/    → regras de negócio (max 5 deps, max 250 linhas)
+├── newversion/controller/ → endpoints REST (@Valid obrigatório)
+└── newversion/dto/        → records com validação Jakarta
 ```
 
 ## Build e Testes

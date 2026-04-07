@@ -1,4 +1,4 @@
-# Jornadas de Usuario
+# Jornadas de Usuário
 
 ## 1. Primeiro Acesso
 
@@ -32,7 +32,7 @@ flowchart TD
     G -->|Nao| J[Exibe mensagem de erro]
 ```
 
-## 3. Diagnostico de Maturidade
+## 3. Diagnóstico de Maturidade
 
 ```mermaid
 flowchart TD
@@ -85,7 +85,7 @@ flowchart TD
     I --> J
 ```
 
-## 6. Fluxo Admin — Gestao de Conteudo
+## 6. Fluxo Admin — Gestão de Conteúdo
 
 ```mermaid
 flowchart LR
@@ -118,4 +118,4 @@ flowchart TD
     G -->|Nao| E
 ```
 
-<!-- TODO: Screenshots das telas principais de cada jornada — ajuda muito na contextualizacao visual para novos devs -->
+<!-- TODO: Screenshots das telas principais de cada jornada — ajuda muito na contextualização visual para novos devs -->

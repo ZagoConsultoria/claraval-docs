@@ -1,17 +1,17 @@
-# API - Plano de Acao
+# API - Plano de Ação
 
 ## Itens do Plano
 
 **Prefixo:** `/action-plans`
-**Autenticacao:** Requerida
+**Autenticação:** Requerida
 
 ### GET /action-plans/escola/{escolaId}
 
-Lista itens do plano de acao da escola.
+Lista itens do plano de ação da escola.
 
 **Query params:**
 
-| Param | Tipo | Descricao |
+| Param | Tipo | Descrição |
 |-------|------|-----------|
 | `pillar` | string | Filtro por pilar |
 | `status` | string | PENDENTE, EM_ANDAMENTO, CONCLUIDO |
@@ -38,7 +38,7 @@ Lista itens do plano de acao da escola.
 
 ### PUT /action-plans/{id}
 
-Atualiza item do plano. **Admin only** para edicao completa; Cliente pode alterar apenas `status`.
+Atualiza item do plano. **Admin only** para edição completa; Cliente pode alterar apenas `status`.
 
 ### PATCH /action-plans/{id}/status
 
@@ -63,9 +63,9 @@ Remove item. **Admin only.**
 ## Templates
 
 **Prefixo:** `/action-plan-templates`
-**Autenticacao:** `ROLE_ADMIN`
+**Autenticação:** `ROLE_ADMIN`
 
-Templates definem quais itens sao gerados automaticamente apos um diagnostico.
+Templates definem quais itens são gerados automaticamente após um diagnóstico.
 
 ### GET /action-plan-templates
 
@@ -92,9 +92,9 @@ Cria template.
 }
 ```
 
-**Logica:** Quando a escola responde entre `minLevel` e `maxLevel` na pergunta vinculada, o item e gerado no plano.
+**Lógica:** Quando a escola responde entre `minLevel` e `maxLevel` na pergunta vinculada, o item é gerado no plano.
 
-**`contractType`:** Quando preenchido, template so gera para escolas com aquele contrato. Quando null, gera para todos.
+**`contractType`:** Quando preenchido, template só gera para escolas com aquele contrato. Quando null, gera para todos.
 
 ### PUT /action-plan-templates/{id}
 
@@ -104,9 +104,9 @@ Atualiza template.
 
 Remove template.
 
-## Regras de Negocio
+## Regras de Negócio
 
-- Itens gerados automaticamente apos `PATCH /diagnostics/{id}/finalizar`
+- Itens gerados automaticamente após `PATCH /diagnostics/{id}/finalizar`
 - Prioridade baseada na nota: menores notas = maior prioridade
-- Para contratos Start: ferramentas e aulas de pilares fora do selecionado aparecem bloqueadas no frontend (visíveis mas nao acessiveis)
+- Para contratos Start: ferramentas e aulas de pilares fora do selecionado aparecem bloqueadas no frontend (visíveis mas não acessíveis)
 - Admin pode vincular ferramentas e aulas sugeridas a cada item

@@ -1,17 +1,17 @@
-# API - Usuarios
+# API - Usuários
 
-## Gestao de Usuarios (Admin)
+## Gestão de Usuários (Admin)
 
 **Prefixo:** `/admin`
-**Autenticacao:** Requerida (`ROLE_ADMIN`)
+**Autenticação:** Requerida (`ROLE_ADMIN`)
 
 ### GET /admin/usuarios
 
-Lista todos os usuarios com filtros opcionais.
+Lista todos os usuários com filtros opcionais.
 
 **Query params:**
 
-| Param | Tipo | Descricao |
+| Param | Tipo | Descrição |
 |-------|------|-----------|
 | `search` | string | Busca por nome ou email |
 | `role` | string | Filtro por role (ROLE_ADMIN, ROLE_USER) |
@@ -19,7 +19,7 @@ Lista todos os usuarios com filtros opcionais.
 
 ### POST /admin/usuarios
 
-Cria novo usuario. Envia email de boas-vindas automaticamente.
+Cria novo usuário. Envia email de boas-vindas automaticamente.
 
 **Request:**
 
@@ -35,23 +35,23 @@ Cria novo usuario. Envia email de boas-vindas automaticamente.
 
 ### PUT /admin/usuarios/{id}
 
-Atualiza dados do usuario.
+Atualiza dados do usuário.
 
 ### DELETE /admin/usuarios/{id}
 
-Remove usuario.
+Remove usuário.
 
 ### PATCH /admin/usuarios/{id}/toggle
 
-Ativa/desativa usuario.
+Ativa/desativa usuário.
 
 ### GET /admin/users/{id}/categorias
 
-Retorna categorias de documentos configuradas para o usuario.
+Retorna categorias de documentos configuradas para o usuário.
 
 ### PUT /admin/users/{id}/categorias
 
-Atualiza permissoes de categorias de documentos do usuario.
+Atualiza permissões de categorias de documentos do usuário.
 
 **Request:**
 
@@ -63,19 +63,19 @@ Atualiza permissoes de categorias de documentos do usuario.
 
 Lista vazia = acesso irrestrito (backward-compatible).
 
-## Perfil do Usuario
+## Perfil do Usuário
 
 **Prefixo:** `/usuarios`
-**Autenticacao:** Requerida (qualquer role)
+**Autenticação:** Requerida (qualquer role)
 
 ### GET /usuarios/perfil
 
-Retorna dados do usuario logado.
+Retorna dados do usuário logado.
 
 ### PUT /usuarios/perfil
 
-Atualiza perfil do usuario logado (nome, senha).
+Atualiza perfil do usuário logado (nome, senha).
 
 ### PUT /usuarios/completar-perfil
 
-Completa perfil apos primeiro login (define senha para usuarios criados pelo admin).
+Completa perfil após primeiro login (define senha para usuários criados pelo admin).

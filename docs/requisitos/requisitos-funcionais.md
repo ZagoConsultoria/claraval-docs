@@ -1,66 +1,75 @@
 # Requisitos Funcionais
 
-## Autenticacao e Usuarios
+## Autenticação e Usuários
 
 | ID | Requisito | Status |
 |----|-----------|--------|
 | FR-01 | Dois perfis: Admin (consultores) e Cliente (gestores) | Implementado |
-| FR-01.1 | Todos os Admins com mesmo nivel de acesso | Implementado |
+| FR-01.1 | Todos os Admins com mesmo nível de acesso | Implementado |
 | FR-02 | Admins acessam qualquer escola | Implementado |
-| FR-03 | Clientes so acessam dados da propria escola | Implementado |
-| FR-03.1 | Multiplos usuarios por escola, mesma permissao | Implementado |
+| FR-03 | Clientes só acessam dados da própria escola | Implementado |
+| FR-03.1 | Múltiplos usuários por escola, mesma permissão | Implementado |
 | FR-04 | Email de boas-vindas com link para definir senha | Implementado |
-| FR-05 | Senhas: minimo 8 caracteres com letras e numeros | Implementado |
-| FR-05.1 | Login via Google OAuth para usuarios pre-cadastrados | Implementado |
+| FR-05 | Senhas: mínimo 8 caracteres com letras e números | Implementado |
+| FR-05.1 | Login via Google OAuth para usuários pré-cadastrados | Implementado |
 
-## Diagnostico
+## Diagnóstico
 
 | ID | Requisito | Status |
 |----|-----------|--------|
 | FR-06 | Perguntas filtradas por targetAudience (CLUBE, CORP, START, AMBOS) | Implementado |
-| FR-06.1 | Diagnostico preenchido pelo Admin junto com Cliente | Implementado |
-| FR-07 | Cada pergunta com 5 niveis de maturidade | Implementado |
-| FR-08 | Nota geral = media ponderada dos pilares | Implementado |
-| FR-09 | Diagnosticos trimestrais com historico completo | Implementado |
-| FR-10 | Plano de acao gerado automaticamente | Implementado |
+| FR-06.1 | Diagnóstico preenchido pelo Admin junto com Cliente | Implementado |
+| FR-07 | Cada pergunta com 5 níveis de maturidade | Implementado |
+| FR-08 | Nota geral = média ponderada dos pilares | Implementado |
+| FR-09 | Diagnósticos trimestrais com histórico completo | Implementado |
+| FR-10 | Plano de ação gerado automaticamente | Implementado |
 | FR-10.1 | Admin edita perguntas via interface visual | Implementado |
-| FR-10.2 | Versionamento (nao afeta diagnosticos respondidos) | Implementado |
+| FR-10.2 | Versionamento (não afeta diagnósticos respondidos) | Implementado |
 | FR-10.3 | Itens do plano mostram ferramentas e aulas sugeridas | Implementado |
 | FR-10.4 | Start: ferramentas fora do pilar aparecem bloqueadas | Implementado |
 | FR-10.5 | Templates com contractType (nullable) | Implementado |
 | FR-10.6 | Editor admin com abas por tipo de contrato | Implementado |
+| FR-10.7 | Resultados do diagnóstico exibem benchmark de cluster: média de notas de escolas do mesmo cluster sobreposta no gráfico radar | Pendente |
+
+## Escolas
+
+| ID | Requisito | Status |
+|----|-----------|--------|
+| FR-48 | Campo `cluster` da escola deve ser um enum (`ATE_300`, `DE_300_A_500`, `DE_500_A_1000`, `ACIMA_DE_1000`) — não texto livre | Pendente |
+| FR-49 | Cadastro de escola deve ter select obrigatório para cluster | Pendente |
+| FR-50 | Filtros de listagem de escolas, vídeos, trilhas e relatórios devem incluir filtro por cluster (select com enum) | Pendente |
 
 ## Ferramentas
 
 | ID | Requisito | Status |
 |----|-----------|--------|
-| FR-11 | Tres tipos: Template, Score, Checklist | Parcial |
-| FR-11.1 | Liberacao hibrida: contrato + admin por escola | Implementado |
+| FR-11 | Três tipos: Template, Score, Checklist | Parcial |
+| FR-11.1 | Liberação híbrida: contrato + admin por escola | Implementado |
 | FR-12 | Auto-save de progresso | Pendente |
-| FR-13 | Historico de versoes de preenchimentos | Pendente |
-| FR-14 | Exportacao em PDF | Pendente |
+| FR-13 | Histórico de versões de preenchimentos | Pendente |
+| FR-14 | Exportação em PDF | Pendente |
 | FR-15 | Vincular a pilares e itens do plano | Implementado |
 
 ## E-Learning
 
 | ID | Requisito | Status |
 |----|-----------|--------|
-| FR-16 | Videos categorizados por pilar e cluster | Parcial (clusters pendente) |
-| FR-17 | Rastreamento de progresso de visualizacao | Implementado |
-| FR-18 | Videos organizados em trilhas ordenadas | Implementado |
+| FR-16 | Vídeos categorizados por pilar e cluster | Parcial (clusters pendente) |
+| FR-17 | Rastreamento de progresso de visualização | Implementado |
+| FR-18 | Vídeos organizados em trilhas ordenadas | Implementado |
 | FR-43 | Live streaming via MediaMTX (RTMP → HLS) | Implementado |
 | FR-44 | Apenas autenticados acessam stream | Implementado |
-| FR-45 | Deteccao automatica de live ativa | Implementado |
+| FR-45 | Detecção automática de live ativa | Implementado |
 
 ## Documentos
 
 | ID | Requisito | Status |
 |----|-----------|--------|
 | FR-25 | Upload organizado por pilar e categoria | Implementado |
-| FR-26 | Multiplos documentos por categoria | Implementado |
+| FR-26 | Múltiplos documentos por categoria | Implementado |
 | FR-27 | Admin configura categorias por pilar | Implementado |
-| FR-28 | Historico de envios por categoria | Implementado |
-| FR-45 | Restricao de acesso por usuario (tabela vazia = total) | Implementado |
+| FR-28 | Histórico de envios por categoria | Implementado |
+| FR-45 | Restrição de acesso por usuário (tabela vazia = total) | Implementado |
 | FR-46 | Filtragem server-side por categorias permitidas | Implementado |
 | FR-47 | Admin com acesso irrestrito | Implementado |
 
@@ -68,12 +77,12 @@
 
 | ID | Requisito | Status |
 |----|-----------|--------|
-| FR-29 | Duas variantes: com e sem diagnostico | Implementado |
+| FR-29 | Duas variantes: com e sem diagnóstico | Implementado |
 | FR-30 | Variante determinada automaticamente | Implementado |
-| FR-31 | Planner aparece apos diagnostico gerar plano | Implementado |
+| FR-31 | Planner aparece após diagnóstico gerar plano | Implementado |
 | FR-32 | Banners gerenciados pelo Admin via CRUD | Implementado |
 
-## Upload de Videos
+## Upload de Vídeos
 
 | ID | Requisito | Status |
 |----|-----------|--------|
@@ -86,22 +95,22 @@
 | ID | Requisito | Status |
 |----|-----------|--------|
 | FR-36 | CRUD de trilhas | Implementado |
-| FR-37 | Trilhas agrupam videos com ordenacao | Implementado |
+| FR-37 | Trilhas agrupam vídeos com ordenação | Implementado |
 | FR-38 | Trilhas substituem agrupamento por pilar | Implementado |
-| FR-39 | Calculo de progresso por trilha | Implementado |
+| FR-39 | Cálculo de progresso por trilha | Implementado |
 
 ## Dashboard Admin
 
 | ID | Requisito | Status |
 |----|-----------|--------|
-| FR-40 | Metricas em tempo real | Implementado |
+| FR-40 | Métricas em tempo real | Implementado |
 | FR-41 | Cards detalhados | Implementado |
-| FR-42 | Links rapidos para gestao | Implementado |
+| FR-42 | Links rápidos para gestão | Implementado |
 
 ## Dados e Armazenamento
 
 | ID | Requisito | Status |
 |----|-----------|--------|
 | FR-22 | Auto-save de todos os dados | Parcial |
-| FR-23 | Log de alteracoes em dados criticos | Parcial |
+| FR-23 | Log de alterações em dados críticos | Parcial |
 | FR-24 | Uploads em storage | Implementado (local) |

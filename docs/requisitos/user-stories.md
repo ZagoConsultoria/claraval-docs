@@ -1,247 +1,249 @@
 # User Stories
 
-## Modulo: Autenticacao e Gestao de Usuarios
+## Módulo: Autenticação e Gestão de Usuários
 
-### US-001: Login de usuarios
+### US-001: Login de usuários
 
-**Como** um usuario (Admin ou Cliente), **quero** fazer login na plataforma **para** acessar as funcionalidades correspondentes ao meu perfil.
+**Como** um usuário (Admin ou Cliente), **quero** fazer login na plataforma **para** acessar as funcionalidades correspondentes ao meu perfil.
 
 - [x] Tela de login com campos email e senha
-- [x] Botao "Entrar com Google" para autenticacao via Google OAuth
-- [x] Autenticacao segura com JWT
-- [x] Redirecionamento para dashboard apos login bem-sucedido
-- [x] Mensagem de erro clara para credenciais invalidas
-- [x] Opcao "Esqueci minha senha" com recuperacao por email
-- [x] Usuario que faz login com Google deve estar pre-cadastrado
+- [x] Botão "Entrar com Google" para autenticação via Google OAuth
+- [x] Autenticação segura com JWT
+- [x] Redirecionamento para dashboard após login bem-sucedido
+- [x] Mensagem de erro clara para credenciais inválidas
+- [x] Opção "Esqueci minha senha" com recuperação por email
+- [x] Usuário que faz login com Google deve estar pré-cadastrado
 
 ### US-002: Cadastro de escolas (Admin)
 
 **Como** um Admin, **quero** cadastrar novas escolas clientes **para** gerenciar seus contratos na plataforma.
 
-- [ ] Formulario com: nome, endereco, logo, tipo de contrato, data inicio
-- [ ] Para Start: duracao de 3 meses + campo para selecionar pilar de atuacao
-- [ ] Para Corp: campo adicional para setor foco
-- [ ] Upload de logo da escola
-- [ ] Validacao de campos obrigatorios
+- [x] Formulário com: nome, endereço, logo, tipo de contrato, data início
+- [ ] Campo **cluster** obrigatório como select (enum: ATE_300, DE_300_A_500, DE_500_A_1000, ACIMA_DE_1000)
+- [x] Para Start: duração de 3 meses + campo para selecionar pilar de atuação
+- [x] Para Corp: campo adicional para setor foco
+- [x] Upload de logo da escola
+- [x] Validação de campos obrigatórios
 
-### US-003: Cadastro de usuarios (Admin)
+### US-003: Cadastro de usuários (Admin)
 
-**Como** um Admin, **quero** cadastrar usuarios vinculados a uma escola **para** que possam acessar a plataforma.
+**Como** um Admin, **quero** cadastrar usuários vinculados a uma escola **para** que possam acessar a plataforma.
 
-- [ ] Formulario com: nome, email, cargo, escola vinculada
-- [ ] Email de boas-vindas enviado automaticamente
-- [ ] Admin pode editar ou desativar usuarios
+- [x] Formulário com: nome, email, cargo, escola vinculada
+- [x] Email de boas-vindas enviado automaticamente
+- [x] Admin pode editar ou desativar usuários
 
-### US-004: Listagem e gestao de escolas (Admin)
+### US-004: Listagem e gestão de escolas (Admin)
 
 **Como** um Admin, **quero** visualizar todas as escolas cadastradas **para** acompanhar o status dos contratos.
 
-- [ ] Lista com: nome, logo, tipo de contrato, nota atual, status
-- [ ] Filtros por tipo de contrato, status, nota
-- [ ] Busca por nome
-- [ ] Click na escola abre dashboard dela
+- [x] Lista com: nome, logo, tipo de contrato, nota atual, status
+- [x] Filtros por tipo de contrato, status, nota
+- [x] Busca por nome
+- [x] Click na escola abre dashboard dela
 
 ---
 
-## Modulo: Dashboard/Home
+## Módulo: Dashboard/Home
 
 ### US-005: Dashboard principal
 
-**Como** um Cliente, **quero** ver o dashboard da minha escola **para** entender rapidamente minha situacao.
+**Como** um Cliente, **quero** ver o dashboard da minha escola **para** entender rapidamente minha situação.
 
-- [ ] Header com logo e nome/endereco da escola
-- [ ] Carrossel de banners com eventos e avisos
-- [ ] Secao "Pilares que sustentam a escola" com 5 pilares clicaveis
-- [ ] Card do ultimo diagnostico com nota geral
-- [ ] Secao de videos e ferramentas recomendados
+- [ ] Header com logo e nome/endereço da escola
+- [x] Carrossel de banners com eventos e avisos
+- [x] Seção "Pilares que sustentam a escola" com 5 pilares clicáveis
+- [x] Card do último diagnóstico com nota geral
+- [x] Seção de vídeos e ferramentas recomendados
 
-### US-006: Selecao de pilar para detalhamento
+### US-006: Seleção de pilar para detalhamento
 
-**Como** um Cliente, **quero** clicar em um pilar **para** ver videos e ferramentas relacionados.
+**Como** um Cliente, **quero** clicar em um pilar **para** ver vídeos e ferramentas relacionados.
 
-- [ ] Pilares com icones distintos
-- [ ] Pilar selecionado fica destacado
-- [ ] Secoes de videos e ferramentas filtram pelo pilar
+- [x] Pilares com ícones distintos
+- [x] Pilar selecionado fica destacado
+- [x] Seções de vídeos e ferramentas filtram pelo pilar
 
-### US-007: Gestao de banners (Admin)
+### US-007: Gestão de banners (Admin)
 
 **Como** um Admin, **quero** gerenciar banners do carrossel **para** comunicar eventos e novidades.
 
-- [ ] CRUD completo de banners
-- [ ] Upload de imagem, titulo, link, periodo de exibicao
-- [ ] Ordenacao drag and drop
+- [x] CRUD completo de banners
+- [x] Upload de imagem, título, link, período de exibição
+- [] Ordenação drag and drop
 
 ---
 
-## Modulo: Diagnostico
+## Módulo: Diagnóstico
 
-### US-008: Aplicacao do diagnostico
+### US-008: Aplicação do diagnóstico
 
-**Como** um Cliente, **quero** responder o diagnostico gerencial **para** identificar as lacunas da minha escola.
+**Como** um Cliente, **quero** responder o diagnóstico gerencial **para** identificar as lacunas da minha escola.
 
-- [ ] Organizado por pilares (5 pilares)
-- [ ] Cada pilar tem multiplos eixos com perguntas
-- [ ] Escala de 1 a 5 niveis de maturidade
-- [ ] Barra de progresso
-- [ ] Salvar automaticamente respostas parciais
-- [ ] Perguntas diferentes por tipo de contrato
-- [ ] So pode ser preenchido junto com o admin
+- [x] Organizado por pilares (5 pilares)
+- [x] Cada pilar tem múltiplos eixos com perguntas
+- [x] Escala de 1 a 5 níveis de maturidade
+- [x] Barra de progresso
+- [x] Salvar automaticamente respostas parciais
+- [x] Perguntas diferentes por tipo de contrato
+- [x] Só pode ser preenchido junto com o admin
 
-### US-009: Resultados do diagnostico
+### US-009: Resultados do diagnóstico
 
 **Como** um Cliente, **quero** ver os resultados **para** entender onde preciso melhorar.
 
-- [ ] Nota geral (media ponderada)
-- [ ] Grafico radar por pilar
-- [ ] Detalhamento por pilar e eixo
-- [ ] Indicacao visual de areas criticas
-- [ ] Exportar PDF
+- [x] Nota geral (média ponderada)
+- [x] Gráfico radar por pilar
+- [ ] Gráfico radar com benchmark: média de notas de outras escolas do mesmo cluster sobreposta no radar
+- [x] Detalhamento por pilar e eixo
+- [x] Indicação visual de áreas críticas
+- [] Exportar PDF
 
-### US-010: Historico de diagnosticos
+### US-010: Histórico de diagnósticos
 
-**Como** um Cliente, **quero** ver o historico **para** acompanhar minha evolucao trimestral.
+**Como** um Cliente, **quero** ver o histórico **para** acompanhar minha evolução trimestral.
 
-- [ ] Dropdown para selecionar diagnostico anterior
-- [ ] Grafico de evolucao ao longo do tempo
-- [ ] Comparativo entre diagnostico atual e anterior
+- [x] Dropdown para selecionar diagnóstico anterior
+- [x] Gráfico de evolução ao longo do tempo
+- [x] Comparativo entre diagnóstico atual e anterior
 
-### US-011: Geracao do plano de acao
+### US-011: Geração do plano de ação
 
-**Como** um Cliente, **quero** que o sistema gere um plano de acao **para** saber o que preciso fazer.
+**Como** um Cliente, **quero** que o sistema gere um plano de ação **para** saber o que preciso fazer.
 
-- [ ] Gerado automaticamente apos finalizar diagnostico
-- [ ] Organizado por pilar e eixo
-- [ ] Cada item mostra ferramentas e aulas sugeridas
-- [ ] Priorizados por nota (piores = maior prioridade)
-- [ ] Admin pode editar/ajustar
+- [x] Gerado automaticamente após finalizar diagnóstico
+- [x] Organizado por pilar e eixo
+- [x] Cada item mostra ferramentas e aulas sugeridas
+- [x] Priorizados por nota (piores = maior prioridade)
+- [] Admin pode editar/ajustar
 
-### US-012: Acompanhamento do plano de acao
+### US-012: Acompanhamento do plano de ação
 
-**Como** um Cliente, **quero** acompanhar e marcar itens como concluidos **para** registrar meu progresso.
+**Como** um Cliente, **quero** acompanhar e marcar itens como concluídos **para** registrar meu progresso.
 
-- [ ] Lista com checkbox de conclusao
-- [ ] Ferramentas e aulas sugeridas com acesso rapido
-- [ ] Para Start: itens fora do pilar aparecem bloqueados
-- [ ] Barra de progresso geral
+- [x] Lista com checkbox de conclusão
+- [x] Ferramentas e aulas sugeridas com acesso rápido
+- [x] Para Start: itens fora do pilar aparecem bloqueados
+- [x] Barra de progresso geral
 
-### US-013: Configuracao do diagnostico (Admin)
+### US-013: Configuração do diagnóstico (Admin)
 
 **Como** um Admin, **quero** configurar perguntas e eixos **para** manter a metodologia atualizada sem desenvolvedor.
 
-- [ ] Interface visual de edicao (form builder)
-- [ ] CRUD de pilares, eixos e perguntas
-- [ ] Editor inline para textos
-- [ ] Definir niveis 1-5 por pergunta
-- [ ] Marcar targetAudience (Clube, Corp, Start, Ambos)
-- [ ] Abas por tipo de contrato
-- [ ] Drag and drop para reordenar
-- [ ] Versionamento (nao afeta diagnosticos respondidos)
+- [x] Interface visual de edição (form builder)
+- [x] CRUD de pilares, eixos e perguntas
+- [x] Editor inline para textos
+- [x] Definir níveis 1-5 por pergunta
+- [x] Marcar targetAudience (Clube, Corp, Start, Ambos)
+- [x] Abas por tipo de contrato
+- [x] Drag and drop para reordenar
+- [x] Versionamento (não afeta diagnósticos respondidos)
 
 ---
 
-## Modulo: Ferramentas
+## Módulo: Ferramentas
 
 ### US-014: Listagem de ferramentas
 
-**Como** um Cliente, **quero** ver ferramentas disponiveis **para** escolher qual utilizar.
+**Como** um Cliente, **quero** ver ferramentas disponíveis **para** escolher qual utilizar.
 
-- [ ] Grid de cards com icone, nome, pilar, tipo
-- [ ] Indicador se esta no plano de acao
-- [ ] Filtros por pilar e tipo
+- [x] Grid de cards com ícone, nome, pilar, tipo
+- [x] Indicador se está no plano de ação
+- [x] Filtros por pilar e tipo
 
 ### US-015: Ferramenta tipo Template
 
-**Como** um Cliente, **quero** preencher um template **para** documentar informacoes da minha escola.
+**Como** um Cliente, **quero** preencher um template **para** documentar informações da minha escola.
 
-- [ ] Campos conforme estrutura (textos, selects, tabelas)
-- [ ] Salvar automaticamente
-- [ ] Exportar PDF
-- [ ] Versionamento com historico
+- [x] Campos conforme estrutura (textos, selects, tabelas)
+- [x] Salvar automaticamente
+- [x] Exportar PDF
+- [x] Versionamento com histórico
 
 ### US-016: Ferramenta tipo Score
 
-**Como** um Cliente, **quero** preencher uma auto-avaliacao **para** obter uma nota.
+**Como** um Cliente, **quero** preencher uma autoavaliação **para** obter uma nota.
 
-- [ ] Formulario com escala de resposta
-- [ ] Calculo automatico do score
-- [ ] Interpretacao do resultado
-- [ ] Historico de scores
+- [ ] Formulário com escala de resposta
+- [ ] Cálculo automático do score
+- [ ] Interpretação do resultado
+- [ ] Histórico de scores
 
 ### US-017: Ferramenta tipo Checklist
 
-**Como** um Cliente, **quero** usar um checklist **para** acompanhar execucao de um processo.
+**Como** um Cliente, **quero** usar um checklist **para** acompanhar execução de um processo.
 
 - [ ] Lista com checkbox
-- [ ] Agrupamento em secoes
+- [ ] Agrupamento em seções
 - [ ] Barra de progresso
 - [ ] Exportar PDF
 
 ---
 
-## Modulo: E-Learning
+## Módulo: E-Learning
 
 ### US-019: Trilhas por pilar
 
-**Como** um Cliente, **quero** acessar videos por pilar **para** aprender sobre temas que preciso melhorar.
+**Como** um Cliente, **quero** acessar vídeos por pilar **para** aprender sobre temas que preciso melhorar.
 
-- [ ] Menu com 5 pilares
-- [ ] Indicador de video assistido
-- [ ] Barra de progresso da trilha
+- [x] Menu com 5 pilares
+- [x] Indicador de vídeo assistido
+- [x] Barra de progresso da trilha
 
 ### US-020: Trilhas por cluster
 
-**Como** um Cliente, **quero** filtrar por tamanho de escola **para** ver conteudos relevantes.
+**Como** um Cliente, **quero** filtrar por tamanho de escola **para** ver conteúdos relevantes.
 
-- [ ] Filtro: "Ate 300", "300-500", "500-1000", "1000+"
-- [ ] Por padrao, mostra conteudo do cluster do cliente
+- [x] Filtro: "Até 300", "300-500", "500-1000", "1000+"
+- [x] Por padrão, mostra conteúdo do cluster do cliente
 
-### US-021: Player de video
+### US-021: Player de vídeo
 
 - [x] Player com streaming HTTP Range
-- [x] Controles padrao
+- [x] Controles padrão
 - [x] Marcar como assistido ao completar 90%
 - [x] Progresso salvo (continuar de onde parou)
-- [x] Protecao anti-gravacao
+- [x] Proteção anti-gravação
 
-### US-022: Gestao de videos e trilhas (Admin)
+### US-022: Gestão de vídeos e trilhas (Admin)
 
-- [x] CRUD de videos com upload drag-and-drop
+- [x] CRUD de vídeos com upload drag-and-drop
 - [x] Streaming com HTTP Range
-- [x] CRUD de trilhas com ordenacao
+- [x] CRUD de trilhas com ordenação
 
 ---
 
-## Modulo: Documentos
+## Módulo: Documentos
 
 ### US-026: Envio de documentos por pilar
 
 **Como** um Cliente, **quero** enviar documentos organizados por pilar e categoria.
 
-- [ ] Documentos organizados por pilar
-- [ ] Categorias configuraveis pelo Admin
-- [ ] Upload de multiplos documentos por categoria
-- [ ] Formatos: PDF, XLSX, DOCX, PNG, JPG
-- [ ] Indicador de status: pendente, enviado, aprovado
-- [ ] Historico de envios
+- [x] Documentos organizados por pilar
+- [x] Categorias configuráveis pelo Admin
+- [x] Upload de múltiplos documentos por categoria
+- [x] Formatos: PDF, XLSX, DOCX, PNG, JPG
+- [x] Indicador de status: pendente, enviado, aprovado
+- [x] Histórico de envios
 
-### US-027: Gestao de categorias (Admin)
+### US-027: Gestão de categorias (Admin)
 
-- [ ] CRUD de categorias vinculadas a pilares
-- [ ] Ativar/desativar categorias
-- [ ] Visualizar status de envio por escola
+- [x] CRUD de categorias vinculadas a pilares
+- [x] Ativar/desativar categorias
+- [x] Visualizar status de envio por escola
 
 ### US-028: Controle de acesso a documentos (Admin)
 
 - [x] Tabela many-to-many usuario_categorias
 - [x] Tabela vazia = acesso irrestrito
-- [x] Admin sempre ve todos os documentos
+- [x] Admin sempre vê todos os documentos
 - [x] Filtragem server-side
 
 ---
 
-## Modulo: Tarefas e Sprints
+## Módulo: Tarefas e Sprints
 
-### US-029: Gestao de Sprints (Admin)
+### US-029: Gestão de Sprints (Admin)
 
 - [x] CRUD de sprints por escola
 - [x] Sprint pode ser fechada (tarefas ficam read-only)
@@ -251,30 +253,30 @@
 
 - [x] Kanban (3 colunas com drag-and-drop)
 - [x] Lista (tabela com header sticky)
-- [x] Calendario (grid mensal)
+- [x] Calendário (grid mensal)
 
 ### US-031: Filtros do Board
 
-- [x] Filtro por origem, status e responsavel
+- [x] Filtro por origem, status e responsável
 - [x] Filtros aplicam em todas as views
 
 ### US-032: CRUD de Tarefas
 
-- [x] Criar com titulo, descricao, sprint, responsavel, prazo, poker points
-- [x] Modal de edicao com subtarefas
+- [x] Criar com título, descrição, sprint, responsável, prazo, poker points
+- [x] Modal de edição com subtarefas
 - [x] Sprint fechada: campos read-only
 
-### US-033: Responsaveis
+### US-033: Responsáveis
 
-- [x] Dropdown inclui usuarios da escola + admins
-- [x] Admins podem ser atribuidos a qualquer escola
+- [x] Dropdown inclui usuários da escola + admins
+- [x] Admins podem ser atribuídos a qualquer escola
 
 ### US-034: Analytics de Sprints
 
-- [x] Grafico de velocidade por sprint
-- [x] Grafico de pontos por pessoa
-- [x] Card de capacidade com metricas
+- [x] Gráfico de velocidade por sprint
+- [x] Gráfico de pontos por pessoa
+- [x] Card de capacidade com métricas
 
-### US-035: Integracao com Dashboard
+### US-035: Integração com Dashboard
 
-- [x] Calendario do dashboard mostra tarefas de sprint e plano CLA
+- [x] Calendário do dashboard mostra tarefas de sprint e plano CLA

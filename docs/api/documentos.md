@@ -3,13 +3,13 @@
 ## Categorias
 
 **Prefixo:** `/documents/categories` ou `/categorias`
-**Autenticacao:** Requerida
+**Autenticação:** Requerida
 
 ### GET /categorias/minhas
 
-Retorna categorias que o usuario tem permissao de acessar.
+Retorna categorias que o usuário tem permissão de acessar.
 
-Quando o usuario nao tem restricoes configuradas (tabela vazia), retorna todas as categorias.
+Quando o usuário não tem restrições configuradas (tabela vazia), retorna todas as categorias.
 
 ### GET /categorias
 
@@ -42,11 +42,11 @@ Ativa/desativa categoria. **Admin only.**
 ## Upload e Download
 
 **Prefixo:** `/documents` ou `/arquivos`
-**Autenticacao:** Requerida
+**Autenticação:** Requerida
 
 ### GET /documents/escola
 
-Lista documentos da escola do usuario, filtrados pelas categorias permitidas (server-side).
+Lista documentos da escola do usuário, filtrados pelas categorias permitidas (server-side).
 
 ### POST /arquivos/upload
 
@@ -54,17 +54,17 @@ Upload de documento.
 
 **Request:** `multipart/form-data`
 
-| Campo | Tipo | Descricao |
+| Campo | Tipo | Descrição |
 |-------|------|-----------|
 | `file` | File | Arquivo (PDF, XLSX, DOCX, PNG, JPG) |
 | `categoriaId` | UUID | Categoria do documento |
 
-!!! note "Validacao de acesso"
-    O upload valida se o usuario tem acesso a categoria antes de salvar. Retorna 403 se nao permitido.
+!!! note "Validação de acesso"
+    O upload valida se o usuário tem acesso a categoria antes de salvar. Retorna 403 se não permitido.
 
 ### GET /documents/download/{id}
 
-Download de documento. Valida acesso por categoria — retorna 403 se nao permitido.
+Download de documento. Valida acesso por categoria — retorna 403 se não permitido.
 
 ### GET /documents/alldocs
 
@@ -76,14 +76,14 @@ Download em lote (ZIP). **Admin only.**
 
 ## Controle de Acesso por Categoria
 
-O acesso a categorias de documentos e configurado por usuario:
+O acesso a categorias de documentos é configurado por usuário:
 
 - Tabela `usuario_categorias` (many-to-many)
 - Tabela vazia = acesso irrestrito (backward-compatible)
-- Admin sempre ve todos os documentos
-- Toda filtragem e **server-side** — frontend apenas renderiza o que recebe
+- Admin sempre vê todos os documentos
+- Toda filtragem é **server-side** — frontend apenas renderiza o que recebe
 
-Configuracao via endpoints admin:
+Configuração via endpoints admin:
 
-- `GET /admin/users/{id}/categorias` — consulta permissoes
-- `PUT /admin/users/{id}/categorias` — atualiza permissoes (lista vazia = irrestrito)
+- `GET /admin/users/{id}/categorias` — consulta permissões
+- `PUT /admin/users/{id}/categorias` — atualiza permissões (lista vazia = irrestrito)

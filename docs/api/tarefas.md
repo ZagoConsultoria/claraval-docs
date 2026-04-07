@@ -3,7 +3,7 @@
 ## Sprints
 
 **Prefixo:** `/sprints`
-**Autenticacao:** Requerida
+**Autenticação:** Requerida
 
 ### GET /sprints/escola/{escolaId}
 
@@ -56,7 +56,7 @@ Remove sprint. **Admin only.**
 ## Tarefas
 
 **Prefixo:** `/tarefas`
-**Autenticacao:** Requerida
+**Autenticação:** Requerida
 
 ### GET /tarefas/escola/{escolaId}
 
@@ -64,12 +64,12 @@ Lista tarefas da escola.
 
 **Query params:**
 
-| Param | Tipo | Descricao |
+| Param | Tipo | Descrição |
 |-------|------|-----------|
 | `sprintId` | UUID | Filtro por sprint |
 | `status` | string | A_FAZER, FAZENDO, CONCLUIDO |
 | `origem` | string | SPRINT, PLANO_CLA |
-| `responsavelId` | UUID | Filtro por responsavel |
+| `responsavelId` | UUID | Filtro por responsável |
 
 **Response (200):**
 
@@ -117,7 +117,7 @@ Cria nova tarefa.
 
 ### PUT /tarefas/{id}
 
-Atualiza tarefa. Todos os campos editaveis por qualquer usuario autenticado (admin ou cliente).
+Atualiza tarefa. Todos os campos editáveis por qualquer usuário autenticado (admin ou cliente).
 
 ### DELETE /tarefas/{id}
 
@@ -125,7 +125,7 @@ Remove tarefa. **Admin only.**
 
 ### PATCH /tarefas/{id}/status
 
-Altera status da tarefa (tambem pode ser feito via drag-and-drop no kanban).
+Altera status da tarefa (também pode ser feito via drag-and-drop no kanban).
 
 **Request:**
 
@@ -141,15 +141,15 @@ Cria subtarefa.
 
 ### PATCH /tarefas/{tarefaId}/subtarefas/{subtarefaId}/toggle
 
-Marca/desmarca subtarefa como concluida.
+Marca/desmarca subtarefa como concluída.
 
 ### DELETE /tarefas/{tarefaId}/subtarefas/{subtarefaId}
 
 Remove subtarefa.
 
-## Regras de Negocio
+## Regras de Negócio
 
 - Sprint fechada: tarefas ficam read-only
-- Dropdown de responsaveis inclui usuarios da escola + todos os admins
-- Tarefas de origem `PLANO_CLA` sao itens do plano de acao exibidos como read-only
-- Analytics calculam: pontos planejados vs concluidos, velocidade por sprint, taxa de conclusao
+- Dropdown de responsáveis inclui usuários da escola + todos os admins
+- Tarefas de origem `PLANO_CLA` são itens do plano de ação exibidos como read-only
+- Analytics calculam: pontos planejados vs concluídos, velocidade por sprint, taxa de conclusão

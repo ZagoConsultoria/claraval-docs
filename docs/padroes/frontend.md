@@ -1,17 +1,17 @@
-# Padroes Obrigatorios — Frontend
+# Padrões Obrigatórios — Frontend
 
-Regras extraidas do `CLAUDE.md` e do onboarding do repositorio [claraval-front](https://github.com/ZagoConsultoria/claraval-front).
+Regras extraídas do `CLAUDE.md` e do onboarding do repositório [claraval-front](https://github.com/ZagoConsultoria/claraval-front).
 
-## Componentes de Pagina
+## Componentes de Página
 
-- **Nenhuma pagina admin acima de 300 linhas.** Extrair sub-componentes em `components/admin/<entidade>/`.
-- Toda pagina admin deve usar `AdminErrorBoundary` como wrapper.
+- **Nenhuma página admin acima de 300 linhas.** Extrair sub-componentes em `components/admin/<entidade>/`.
+- Toda página admin deve usar `AdminErrorBoundary` como wrapper.
 
 ## Hooks Admin
 
 - **Proibido**: hooks `useAdmin*` com CRUD copy-paste.
-- **Obrigatorio**: usar `useAdminResource<T>()` generico para padroes compartilhados (fetch, search, filter, toggle, CRUD, stats).
-- Cada hook existente deve ser wrapper fino com logica especifica do dominio (ex: upload em `useAdminVideos`).
+- **Obrigatório**: usar `useAdminResource<T>()` genérico para padrões compartilhados (fetch, search, filter, toggle, CRUD, stats).
+- Cada hook existente deve ser wrapper fino com lógica específica do domínio (ex: upload em `useAdminVideos`).
 
 ```
 useAdminResource<T>()          → fetch, search, filter, CRUD, stats
@@ -24,14 +24,14 @@ useAdminResource<T>()          → fetch, search, filter, CRUD, stats
 
 - **Proibido**: `as unknown as () => void`. Corrigir tipagem na raiz.
 - **Proibido**: `any` em qualquer lugar.
-- Fix padrao: `onClick={() => handleSubmit()}` ao inves de cast.
+- Fix padrão: `onClick={() => handleSubmit()}` ao invés de cast.
 - Todos os tipos em `lib/types.ts`.
 - **Named exports apenas** (sem `export default`).
 
-## Utilitarios
+## Utilitários
 
 - **Proibido**: `formatDate`, `formatDuration`, `formatDateTime`, `formatFileSize`, `getInitials` definidos inline.
-- **Obrigatorio**: importar de `lib/utils.ts`.
+- **Obrigatório**: importar de `lib/utils.ts`.
 
 ## Componentes Admin Compartilhados
 
@@ -39,22 +39,22 @@ Sempre usar componentes de `components/admin/`:
 
 | Componente | Uso |
 |------------|-----|
-| `AdminStatChips` | Chips de estatisticas (total, ativos, etc.) |
+| `AdminStatChips` | Chips de estatísticas (total, ativos, etc.) |
 | `AdminSearchBar` | Barra de busca + filtros |
 | `AdminPagination` | Controles prev/next |
-| `ConfirmDeleteModal` | Modal de confirmacao de exclusao |
+| `ConfirmDeleteModal` | Modal de confirmação de exclusão |
 | `AdminErrorBoundary` | Error boundary com retry |
 
 ## API
 
 - Usar `api` de `lib/api.ts` para todas chamadas HTTP. **Nunca `fetch` direto.**
-- GETs tem retry automatico (1x com 1s delay em erros de rede/5xx).
-- Mutacoes (POST/PUT/DELETE) nao tem retry.
+- GETs têm retry automático (1x com 1s delay em erros de rede/5xx).
+- Mutações (POST/PUT/DELETE) não têm retry.
 
-## Estilizacao
+## Estilização
 
-- Tailwind CSS v4 com variaveis CSS customizadas em `globals.css`.
-- Composicao de classes via `cn()` de `lib/utils.ts`:
+- Tailwind CSS v4 com variáveis CSS customizadas em `globals.css`.
+- Composição de classes via `cn()` de `lib/utils.ts`:
 
 ```tsx
 import { cn } from "@/lib/utils";
@@ -63,8 +63,8 @@ import { cn } from "@/lib/utils";
 
 ## Diretiva `"use client"`
 
-- Apenas quando necessario (hooks, estado, eventos do browser).
-- Paginas que so fazem composicao de componentes nao precisam.
+- Apenas quando necessário (hooks, estado, eventos do browser).
+- Páginas que só fazem composição de componentes não precisam.
 
 ## Estrutura de Pastas
 
@@ -72,9 +72,9 @@ import { cn } from "@/lib/utils";
 src/
 ├── app/admin/<entidade>/page.tsx  → max 300 linhas
 ├── components/admin/              → compartilhados
-├── components/admin/<entidade>/   → sub-componentes extraidos
-├── components/ui/                 → primitivos sem logica de negocio
-├── hooks/useAdminResource.ts      → hook generico
+├── components/admin/<entidade>/   → sub-componentes extraídos
+├── components/ui/                 → primitivos sem lógica de negócio
+├── hooks/useAdminResource.ts      → hook genérico
 ├── hooks/useAdmin<Entidade>.tsx   → wrapper fino
 ├── lib/utils.ts                   → helpers compartilhados
 ├── lib/api.ts                     → HTTP client com retry
@@ -92,7 +92,7 @@ src/
 
 ```bash
 npm run dev              # Dev server (:3000)
-npm run build            # Build producao
+npm run build            # Build produção
 npm run lint             # ESLint
 npm run format           # Prettier (auto-fix)
 npm run format:check     # Prettier (verificar)

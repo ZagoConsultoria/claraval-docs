@@ -3,11 +3,11 @@
 ## Banners
 
 **Prefixo:** `/banners`
-**Autenticacao:** Requerida
+**Autenticação:** Requerida
 
 ### GET /banners
 
-Lista banners ativos (filtrados por periodo de exibicao).
+Lista banners ativos (filtrados por período de exibição).
 
 ### POST /banners
 
@@ -15,13 +15,13 @@ Cria banner. **Admin only.**
 
 **Request:** `multipart/form-data`
 
-| Campo | Tipo | Descricao |
+| Campo | Tipo | Descrição |
 |-------|------|-----------|
 | `image` | File | Imagem do banner |
-| `title` | string | Titulo |
+| `title` | string | Título |
 | `linkUrl` | string | URL de destino (opcional) |
-| `startDate` | date | Data inicio exibicao |
-| `endDate` | date | Data fim exibicao |
+| `startDate` | date | Data início exibição |
+| `endDate` | date | Data fim exibição |
 | `sortOrder` | number | Ordem no carrossel |
 
 ### PUT /banners/{id}
@@ -39,7 +39,7 @@ Ativa/desativa banner. **Admin only.**
 ## Eventos
 
 **Prefixo:** `/events`
-**Autenticacao:** Requerida
+**Autenticação:** Requerida
 
 ### GET /events
 
@@ -76,7 +76,7 @@ Remove evento. **Admin only.**
 
 ### POST /leads
 
-Captura lead da landing page. **Publico.**
+Captura lead da landing page. **Público.**
 
 **Request:**
 
@@ -103,40 +103,40 @@ Lista leads capturados. **Admin only.**
 ## Reports
 
 **Prefixo:** `/reports`
-**Autenticacao:** `ROLE_ADMIN`
+**Autenticação:** `ROLE_ADMIN`
 
 ### GET /reports/dashboard
 
-Retorna metricas do painel admin:
+Retorna métricas do painel admin:
 
-- Total de diagnosticos (com media de score)
+- Total de diagnósticos (com média de score)
 - Ferramentas utilizadas
 - Aulas assistidas
 - Escolas ativas
-- Usuarios ativos
+- Usuários ativos
 
 ### GET /reports/escola/{escolaId}
 
-Retorna metricas especificas de uma escola.
+Retorna métricas específicas de uma escola.
 
 ## App Config
 
 **Prefixo:** `/app-config`
-**Autenticacao:** `ROLE_ADMIN`
+**Autenticação:** `ROLE_ADMIN`
 
 ### GET /app-config
 
-Retorna configuracoes gerais do app.
+Retorna configurações gerais do app.
 
 ### PUT /app-config
 
-Atualiza configuracoes.
+Atualiza configurações.
 
 ## Health Check
 
 ### GET /status
 
-Retorna status do servidor. **Publico.**
+Retorna status do servidor. **Público.**
 
 **Response (200):**
 

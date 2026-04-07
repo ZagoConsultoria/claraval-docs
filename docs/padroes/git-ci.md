@@ -2,16 +2,16 @@
 
 ## Branches
 
-| Branch | Proposito |
+| Branch | Propósito |
 |--------|-----------|
-| `main` | Producao — deploy automatico via GitHub Actions |
+| `main` | Produção — deploy automático via GitHub Actions |
 
-!!! warning "Atencao"
-    Push para `main` dispara deploy automatico em producao. Nao ha branch de staging.
+!!! warning "Atenção"
+    Push para `main` dispara deploy automático em produção. Não há branch de staging.
 
 ## CI/CD
 
-Ambos os repositorios usam GitHub Actions com runner **self-hosted** (`[self-hosted, claraval]`) em servidor Windows.
+Ambos os repositórios usam GitHub Actions com runner **self-hosted** (`[self-hosted, claraval]`) em servidor Windows.
 
 ### Frontend — Deploy Flow
 
@@ -28,7 +28,7 @@ steps:
   5. Health check em http://localhost:3000
 ```
 
-**Otimizacao**: `npm install` so executa se `package.json` ou `package-lock.json` mudaram no ultimo commit.
+**Otimização**: `npm install` só executa se `package.json` ou `package-lock.json` mudaram no último commit.
 
 ### Backend — Deploy Flow
 
@@ -45,16 +45,16 @@ steps:
   5. Health check em http://localhost:3001/status (10 tentativas, 3s entre cada)
 ```
 
-**Nota**: Testes sao pulados no deploy (`-DskipTests`) para reduzir tempo de downtime.
+**Nota**: Testes são pulados no deploy (`-DskipTests`) para reduzir tempo de downtime.
 
-## Servicos Windows (NSSM)
+## Serviços Windows (NSSM)
 
-| Servico | Porta | Diretorio |
+| Serviço | Porta | Diretório |
 |---------|-------|-----------|
 | `claraval-front` | 3000 | `C:\apps\app1-frontend\claraval-front` |
 | `claraval-back` | 3001 | `C:\apps\app1-backend\claraval-back` |
 
-Comandos uteis (no servidor):
+Comandos úteis (no servidor):
 
 ```powershell
 # Status
@@ -74,12 +74,12 @@ Get-Content -Tail 50 C:\apps\app1-backend\claraval-back\logs\claraval-back.log
 ### Backend
 
 - Arquivo: `logs/claraval-back.log`
-- Tamanho maximo: 10MB
-- Historico: 5 arquivos
-- Nivel root: INFO
-- Nivel aplicacao: DEBUG
+- Tamanho máximo: 10MB
+- Histórico: 5 arquivos
+- Nível root: INFO
+- Nível aplicação: DEBUG
 
 ### Frontend
 
-- Logs do Next.js no stdout do servico NSSM
-- Acessiveis via Event Viewer do Windows ou output do NSSM
+- Logs do Next.js no stdout do serviço NSSM
+- Acessíveis via Event Viewer do Windows ou output do NSSM

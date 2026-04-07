@@ -1,32 +1,32 @@
 # API - E-Learning
 
-## Videos
+## Vídeos
 
 **Prefixo:** `/videos`
-**Autenticacao:** Requerida (exceto streaming)
+**Autenticação:** Requerida (exceto streaming)
 
 ### GET /videos
 
-Lista videos disponiveis para o usuario.
+Lista vídeos disponíveis para o usuário.
 
 **Query params:**
 
-| Param | Tipo | Descricao |
+| Param | Tipo | Descrição |
 |-------|------|-----------|
 | `pillar` | string | Filtro por pilar |
 | `cluster` | string | Filtro por cluster (tamanho da escola) |
 
 ### GET /videos/{id}
 
-Retorna detalhes do video.
+Retorna detalhes do vídeo.
 
 ### GET /videos/stream/{filename}
 
-Stream de video com suporte a HTTP Range (seeking). **Publico.**
+Stream de vídeo com suporte a HTTP Range (seeking). **Público.**
 
 ### POST /videos/{id}/progresso
 
-Salva progresso de visualizacao.
+Salva progresso de visualização.
 
 **Request:**
 
@@ -42,48 +42,48 @@ Status muda para `ASSISTIDO` automaticamente quando progresso >= 90%.
 
 ### GET /videos/continue-watching
 
-Retorna videos com progresso parcial (secao "Continue Assistindo" do dashboard).
+Retorna vídeos com progresso parcial (seção "Continue Assistindo" do dashboard).
 
-## Gestao de Videos (Admin)
+## Gestão de Vídeos (Admin)
 
 **Prefixo:** `/admin/videos` ou `/videos` (dependendo do endpoint)
-**Autenticacao:** `ROLE_ADMIN`
+**Autenticação:** `ROLE_ADMIN`
 
 ### POST /videos
 
-Cria video com upload de arquivo.
+Cria vídeo com upload de arquivo.
 
 **Request:** `multipart/form-data`
 
-| Campo | Tipo | Descricao |
+| Campo | Tipo | Descrição |
 |-------|------|-----------|
-| `file` | File | Arquivo de video (MP4, MOV, WebM, AVI) |
-| `title` | string | Titulo do video |
-| `description` | string | Descricao |
+| `file` | File | Arquivo de vídeo (MP4, MOV, WebM, AVI) |
+| `title` | string | Título do vídeo |
+| `description` | string | Descrição |
 | `pillarIds` | string[] | IDs dos pilares |
 | `clusters` | string[] | Clusters (tamanhos de escola) |
-| `duration` | number | Duracao em segundos |
+| `duration` | number | Duração em segundos |
 
 ### PUT /videos/{id}
 
-Atualiza metadados do video.
+Atualiza metadados do vídeo.
 
 ### DELETE /videos/{id}
 
-Remove video. **Admin only.**
+Remove vídeo. **Admin only.**
 
 ### PATCH /videos/{id}/toggle
 
-Ativa/desativa video.
+Ativa/desativa vídeo.
 
 ## Trilhas
 
 **Prefixo:** `/trails`
-**Autenticacao:** Requerida
+**Autenticação:** Requerida
 
 ### GET /trails
 
-Lista trilhas disponiveis para o usuario com progresso.
+Lista trilhas disponíveis para o usuário com progresso.
 
 **Response (200):**
 
@@ -104,12 +104,12 @@ Lista trilhas disponiveis para o usuario com progresso.
 
 ### GET /trails/{id}
 
-Retorna trilha com lista completa de videos e progresso individual.
+Retorna trilha com lista completa de vídeos e progresso individual.
 
-## Gestao de Trilhas (Admin)
+## Gestão de Trilhas (Admin)
 
 **Prefixo:** `/admin/trails`
-**Autenticacao:** `ROLE_ADMIN`
+**Autenticação:** `ROLE_ADMIN`
 
 ### POST /admin/trails
 
@@ -117,7 +117,7 @@ Cria trilha.
 
 ### PUT /admin/trails/{id}
 
-Atualiza trilha (titulo, descricao, ordem).
+Atualiza trilha (título, descrição, ordem).
 
 ### DELETE /admin/trails/{id}
 
@@ -125,7 +125,7 @@ Remove trilha.
 
 ### PUT /admin/trails/{id}/videos
 
-Define os videos da trilha com ordenacao.
+Define os vídeos da trilha com ordenação.
 
 **Request:**
 
@@ -135,10 +135,10 @@ Define os videos da trilha com ordenacao.
 }
 ```
 
-A ordem dos IDs define a ordem de exibicao.
+A ordem dos IDs define a ordem de exibição.
 
 ## Regras para Contratos Start
 
-- No dashboard e "Continue Assistindo", so aparecem videos do pilar permitido
-- Na pagina de e-learning, trilhas bloqueadas aparecem com icone de cadeado
+- No dashboard e "Continue Assistindo", só aparecem vídeos do pilar permitido
+- Na página de e-learning, trilhas bloqueadas aparecem com ícone de cadeado
 - Na tela de detalhe da trilha bloqueada, exibe tela de "Acesso Restrito"
