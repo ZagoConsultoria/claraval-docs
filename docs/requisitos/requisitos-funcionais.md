@@ -113,6 +113,7 @@
 |----|-----------|--------|
 | FR-51 | Formulário de feedback acessível em todas as páginas via botão flutuante | Pendente |
 | FR-52 | Tipo de feedback: `BUG` ou `SUGESTAO` (enum) | Pendente |
+| FR-52.1 | Formulário deve conter campos obrigatórios: título (resumo) e descrição (detalhamento do bug ou sugestão) | Pendente |
 | FR-53 | Página atual capturada automaticamente (`window.location.pathname`) e enviada junto com o feedback | Pendente |
 | FR-54 | Upload opcional de vídeo (MP4, MOV, WebM) para demonstrar bugs | Pendente |
 | FR-55 | Integração com Jira: feedback cria issue automaticamente via REST API (Basic Auth + API Token) | Pendente |
