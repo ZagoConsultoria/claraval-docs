@@ -1,0 +1,96 @@
+site_name: Claraval Docs
+
+repo_name: "ZagoConsultoria/claraval-docs"
+repo_url: "https://github.com/ZagoConsultoria/claraval-docs"
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.footer
+    - navigation.sections
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  language: pt
+
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch
+        name: Dark mode
+      primary: amber
+      accent: indigo
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Light mode
+      primary: amber
+      accent: indigo
+
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - attr_list
+  - tables
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_mermaid
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - toc:
+      permalink: true
+
+nav:
+  - Inicio: index.md
+  - PRD: prd.md
+  - Arquitetura:
+      - Visao Geral: arquitetura/visao-geral.md
+      - Frontend: arquitetura/frontend.md
+      - Backend: arquitetura/backend.md
+      - Banco de Dados: arquitetura/banco-de-dados.md
+      - Infraestrutura: arquitetura/infraestrutura.md
+  - API:
+      - Visao Geral: api/index.md
+      - Autenticacao: api/autenticacao.md
+      - Escolas: api/escolas.md
+      - Usuarios: api/usuarios.md
+      - Diagnostico: api/diagnostico.md
+      - Plano de Acao: api/plano-de-acao.md
+      - Ferramentas: api/ferramentas.md
+      - E-Learning: api/elearning.md
+      - Documentos: api/documentos.md
+      - Tarefas e Sprints: api/tarefas.md
+      - Live Streaming: api/live.md
+      - Outros: api/outros.md
+  - Requisitos:
+      - User Stories: requisitos/user-stories.md
+      - Requisitos Funcionais: requisitos/requisitos-funcionais.md
+      - Debito Tecnico: requisitos/debito-tecnico.md
+      - Jornadas de Usuario: requisitos/jornadas-usuario.md
+  - Padroes:
+      - Frontend: padroes/frontend.md
+      - Backend: padroes/backend.md
+      - Git e CI/CD: padroes/git-ci.md
+  - Onboarding:
+      - Setup Frontend: onboarding/setup-frontend.md
+      - Setup Backend: onboarding/setup-backend.md
+      - Glossario: onboarding/glossario.md
