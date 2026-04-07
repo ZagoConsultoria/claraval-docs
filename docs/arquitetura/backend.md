@@ -147,5 +147,6 @@ public record SchoolResponse(UUID id, String name, ...) {
 | `TarefaOrigem` | SPRINT, PLANO_CLA |
 | `Priority` | ALTA, MEDIA, BAIXA |
 | `DocumentDirection` | UPLOAD, DOWNLOAD |
+| `FeedbackType` | BUG, SUGESTAO |
 
 <!-- TODO: Screenshot do Swagger UI (/swagger-ui.html) — referência visual da API interativa -->

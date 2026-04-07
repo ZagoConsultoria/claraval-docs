@@ -280,3 +280,45 @@
 ### US-035: Integração com Dashboard
 
 - [x] Calendário do dashboard mostra tarefas de sprint e plano CLA
+
+---
+
+## Módulo: Feedback de Usuários
+
+### US-036: Formulário de feedback e reporte de bugs
+
+**Como** um Cliente ou Admin, **quero** enviar sugestões de melhoria e reportar bugs diretamente pela plataforma **para** que a equipe de desenvolvimento possa corrigir problemas e evoluir o produto.
+
+**Acceptance Criteria:**
+
+- [ ] Botão flutuante (FAB) acessível em todas as páginas da plataforma (ex: ícone de megafone ou interrogação)
+- [ ] Modal/drawer de feedback com campos:
+    - Tipo: select com opções `BUG` ou `SUGESTAO`
+    - Título: campo de texto obrigatório (resumo do feedback)
+    - Descrição: textarea obrigatória (detalhamento)
+    - Página atual: capturada automaticamente via `window.location.pathname` (exibida como campo read-only para o usuário confirmar)
+    - Vídeo (opcional): upload de arquivo de vídeo (MP4, MOV, WebM) para demonstrar o bug
+    - Prioridade (opcional): select com `BAIXA`, `MEDIA`, `ALTA` (default: `MEDIA`)
+- [ ] Formulário captura automaticamente: ID do usuário, nome, email, escola, role, browser/user-agent
+- [ ] Ao enviar, cria issue automaticamente no Jira (projeto configurável) via API REST
+- [ ] Vídeo anexado é enviado como attachment na issue do Jira
+- [ ] Feedback de sucesso ao usuário: "Feedback enviado com sucesso! Referência: PROJ-123"
+- [ ] Exibir a chave da issue do Jira criada na confirmação
+- [ ] Histórico de feedbacks enviados pelo usuário (listagem simples)
+- [ ] Admin pode ver todos os feedbacks enviados no painel admin
+
+### US-036.1: Configuração da integração Jira (Admin)
+
+**Como** um Admin, **quero** configurar a integração com o Jira **para** que os feedbacks sejam enviados ao projeto correto.
+
+**Acceptance Criteria:**
+
+- [ ] Tela de configuração no painel admin com campos:
+    - URL do Jira (ex: `https://empresa.atlassian.net`)
+    - Email da conta de serviço
+    - API Token
+    - Chave do projeto (ex: `CLAR`)
+    - Tipo de issue para bugs (ex: `Bug`)
+    - Tipo de issue para sugestões (ex: `Story` ou `Task`)
+- [ ] Validação de conexão: botão "Testar conexão" que verifica se as credenciais funcionam
+- [ ] Credenciais armazenadas de forma segura (criptografadas no banco, nunca expostas na API)

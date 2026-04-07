@@ -132,6 +132,139 @@ Retorna configurações gerais do app.
 
 Atualiza configurações.
 
+## Feedback
+
+**Prefixo:** `/feedbacks`
+**Autenticação:** Requerida
+
+### POST /feedbacks
+
+Envia feedback do usuário. Cria issue no Jira automaticamente se a integração estiver configurada.
+
+**Request:** `multipart/form-data`
+
+| Campo | Tipo | Obrigatório | Descrição |
+|-------|------|-------------|-----------|
+| `type` | string | Sim | `BUG` ou `SUGESTAO` |
+| `title` | string | Sim | Resumo do feedback |
+| `description` | string | Sim | Detalhamento |
+| `pageUrl` | string | Sim | URL da página onde o usuário estava (capturada automaticamente) |
+| `priority` | string | Não | `BAIXA`, `MEDIA`, `ALTA` (default: `MEDIA`) |
+| `video` | File | Não | Vídeo demonstrando o bug (MP4, MOV, WebM) |
+
+O backend captura automaticamente: `userId`, `userName`, `userEmail`, `schoolName`, `userRole`, `userAgent`.
+
+**Response (201):**
+
+```json
+{
+  "id": "uuid",
+  "type": "BUG",
+  "title": "Botão de salvar não funciona",
+  "pageUrl": "/ferramentas/bsc",
+  "jiraIssueKey": "CLAR-42",
+  "jiraIssueUrl": "https://empresa.atlassian.net/browse/CLAR-42",
+  "createdAt": "2026-04-07T14:30:00"
+}
+```
+
+Se a integração Jira não estiver configurada, `jiraIssueKey` e `jiraIssueUrl` retornam `null` — o feedback é salvo apenas no banco local.
+
+### GET /feedbacks
+
+Lista feedbacks do usuário logado.
+
+### GET /feedbacks/all
+
+Lista todos os feedbacks de todos os usuários. **Admin only.**
+
+**Query params:**
+
+| Param | Tipo | Descrição |
+|-------|------|-----------|
+| `type` | string | Filtro: `BUG` ou `SUGESTAO` |
+| `pageUrl` | string | Filtro por página de origem |
+| `userId` | UUID | Filtro por usuário |
+
+### Integração Jira — Fluxo Interno
+
+```mermaid
+sequenceDiagram
+    participant U as Usuário
+    participant F as Frontend
+    participant B as Backend
+    participant J as Jira API
+
+    U->>F: Preenche formulário + anexa vídeo
+    F->>F: Captura pageUrl, userAgent
+    F->>B: POST /feedbacks (multipart)
+    B->>B: Salva feedback no banco local
+    B->>J: POST /rest/api/3/issue (cria issue)
+    J->>B: 201 {key: "CLAR-42"}
+    alt Tem vídeo
+        B->>J: POST /rest/api/3/issue/CLAR-42/attachments
+        J->>B: 200 OK
+    end
+    B->>F: 201 {jiraIssueKey: "CLAR-42"}
+    F->>U: "Feedback enviado! Ref: CLAR-42"
+```
+
+### Configuração Jira (Admin)
+
+**Prefixo:** `/app-config/jira`
+**Autenticação:** `ROLE_ADMIN`
+
+#### GET /app-config/jira
+
+Retorna configuração da integração Jira (sem expor o token).
+
+**Response (200):**
+
+```json
+{
+  "jiraUrl": "https://empresa.atlassian.net",
+  "jiraEmail": "servico@empresa.com",
+  "jiraProjectKey": "CLAR",
+  "jiraBugIssueType": "Bug",
+  "jiraSuggestionIssueType": "Story",
+  "configured": true
+}
+```
+
+#### PUT /app-config/jira
+
+Atualiza configuração da integração Jira.
+
+**Request:**
+
+```json
+{
+  "jiraUrl": "https://empresa.atlassian.net",
+  "jiraEmail": "servico@empresa.com",
+  "jiraApiToken": "token-secreto",
+  "jiraProjectKey": "CLAR",
+  "jiraBugIssueType": "Bug",
+  "jiraSuggestionIssueType": "Story"
+}
+```
+
+!!! warning "Segurança"
+    O `jiraApiToken` é criptografado antes de salvar no banco. O GET nunca retorna o token — apenas indica se está configurado (`configured: true`).
+
+#### POST /app-config/jira/test
+
+Testa a conexão com o Jira usando as credenciais configuradas.
+
+**Response (200):**
+
+```json
+{
+  "success": true,
+  "projectName": "Claraval App",
+  "issueTypes": ["Bug", "Story", "Task"]
+}
+```
+
 ## Health Check
 
 ### GET /status

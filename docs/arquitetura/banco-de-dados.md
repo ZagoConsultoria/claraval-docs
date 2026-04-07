@@ -82,7 +82,8 @@
 | `Banner` | Banners do carrossel do dashboard |
 | `Event` | Eventos/encontros agendados |
 | `Lead` | Leads capturados pela landing page |
-| `AppConfig` | Configurações gerais do app |
+| `Feedback` | Feedback/bug reportado por usuário. Campos: type (BUG/SUGESTAO), title, description, pageUrl, priority, videoUrl, jiraIssueKey, userId |
+| `AppConfig` | Configurações gerais do app (inclui config da integração Jira — token criptografado) |
 | `DiagnosticPriority` | Prioridades customizadas por tipo de contrato |
 | `DiagnosticSession` | Sessões de preenchimento compartilhado |
 
@@ -111,6 +112,8 @@ erDiagram
     Tarefa ||--o{ Subtarefa : "tem"
 
     Categoria ||--o{ Arquivo : "organiza"
+
+    Usuario ||--o{ Feedback : "envia"
 ```
 
 ## Convenções

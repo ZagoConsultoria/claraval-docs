@@ -107,6 +107,21 @@
 | FR-41 | Cards detalhados | Implementado |
 | FR-42 | Links rápidos para gestão | Implementado |
 
+## Feedback de Usuários
+
+| ID | Requisito | Status |
+|----|-----------|--------|
+| FR-51 | Formulário de feedback acessível em todas as páginas via botão flutuante | Pendente |
+| FR-52 | Tipo de feedback: `BUG` ou `SUGESTAO` (enum) | Pendente |
+| FR-53 | Página atual capturada automaticamente (`window.location.pathname`) e enviada junto com o feedback | Pendente |
+| FR-54 | Upload opcional de vídeo (MP4, MOV, WebM) para demonstrar bugs | Pendente |
+| FR-55 | Integração com Jira: feedback cria issue automaticamente via REST API (Basic Auth + API Token) | Pendente |
+| FR-56 | Vídeo anexado ao feedback é enviado como attachment na issue do Jira (header `X-Atlassian-Token: no-check`) | Pendente |
+| FR-57 | Metadados capturados automaticamente: userId, nome, email, escola, role, browser/user-agent, URL da página | Pendente |
+| FR-58 | Confirmação exibe chave da issue criada no Jira (ex: `CLAR-123`) | Pendente |
+| FR-59 | Configuração da integração Jira no painel admin (URL, email, API token, projeto, tipos de issue) — credenciais criptografadas | Pendente |
+| FR-60 | Admin pode visualizar todos os feedbacks enviados; usuário vê apenas os próprios | Pendente |
+
 ## Dados e Armazenamento
 
 | ID | Requisito | Status |
