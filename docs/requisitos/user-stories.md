@@ -322,3 +322,78 @@
     - Tipo de issue para sugestões (ex: `Story` ou `Task`)
 - [ ] Validação de conexão: botão "Testar conexão" que verifica se as credenciais funcionam
 - [ ] Credenciais armazenadas de forma segura (criptografadas no banco, nunca expostas na API)
+
+---
+
+## Módulo: NPS (Net Promoter Score)
+
+### US-037: Formulário de NPS personalizável (Admin)
+
+**Como** um Admin, **quero** criar e configurar formulários de NPS com perguntas personalizadas **para** medir a satisfação dos clientes de forma adaptada à necessidade.
+
+**Acceptance Criteria:**
+
+- [ ] Interface de criação de NPS com editor de perguntas (adicionar, remover, reordenar)
+- [ ] Escala de nota de 0 a 10 como pergunta obrigatória padrão
+- [ ] Campo de comentário aberto opcional configurável
+- [ ] Perguntas adicionais customizáveis (texto livre, múltipla escolha)
+- [ ] Pré-visualização do formulário antes de publicar
+
+### US-038: NPS automático ao final de trilhas
+
+**Como** um Admin, **quero** que o NPS seja disponibilizado automaticamente ao final de trilhas **para** capturar feedback no momento de maior engajamento.
+
+**Acceptance Criteria:**
+
+- [ ] Opção no cadastro/edição de trilha para vincular um NPS
+- [ ] Ao concluir a última aula da trilha, exibir automaticamente o formulário de NPS
+- [ ] Usuário pode pular o NPS (não obrigatório)
+- [ ] Registrar que o NPS foi exibido mesmo se não respondido (tracking de exibição)
+
+### US-039: NPS sob demanda com associação a eventos, aulas ou trilhas
+
+**Como** um Admin, **quero** criar NPS sob demanda e associá-los a eventos, aulas ou trilhas específicas **para** coletar feedback direcionado.
+
+**Acceptance Criteria:**
+
+- [ ] Criar NPS avulso (não vinculado automaticamente a trilha)
+- [ ] Associar NPS a: evento, aula ou trilha via select
+- [ ] Listar NPS criados com filtro por tipo de associação e status (ativo/encerrado)
+- [ ] Definir período de vigência (data início e fim)
+
+### US-040: QR Code público para NPS
+
+**Como** um Admin, **quero** gerar um QR Code público para um NPS **para** que respondentes possam acessar sem login.
+
+**Acceptance Criteria:**
+
+- [ ] Botão "Gerar QR Code" na tela de detalhes do NPS
+- [ ] QR Code aponta para URL pública (sem autenticação)
+- [ ] Página pública com formulário de NPS responsivo (mobile-first)
+- [ ] Opção de copiar link público para compartilhamento
+- [ ] Campos opcionais de identificação do respondente (nome, email) — não obrigatórios
+
+### US-041: Dashboard de resultados do NPS (Admin)
+
+**Como** um Admin, **quero** visualizar os resultados do NPS em uma área administrativa **para** acompanhar a satisfação e tomar decisões.
+
+**Acceptance Criteria:**
+
+- [ ] Score NPS calculado automaticamente: % Leais − % Detratores
+- [ ] Segmentação visual por categoria: Leais (9-10), Neutros (7-8), Detratores (0-6)
+- [ ] Gráfico de distribuição de notas
+- [ ] Lista de comentários com filtro por segmento (Leais, Neutros, Detratores)
+- [ ] Filtros por período, trilha, evento ou aula associada
+- [ ] Exportação de resultados (CSV ou PDF)
+
+### US-042: Transformar comentário do NPS em tarefa
+
+**Como** um Admin, **quero** transformar comentários do NPS em tarefas no módulo de sprints **para** garantir que o feedback seja tratado.
+
+**Acceptance Criteria:**
+
+- [ ] Botão "Criar tarefa" ao lado de cada comentário do NPS
+- [ ] Ao clicar, abre modal de criação de tarefa pré-preenchido com o comentário na descrição
+- [ ] Campos disponíveis: título, descrição (pré-preenchida), sprint, responsável, prazo, poker points
+- [ ] Tarefa criada aparece no board de sprints com origem identificada como "NPS"
+- [ ] Link de referência entre a tarefa e o comentário original do NPS

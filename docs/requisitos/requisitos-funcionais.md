@@ -123,6 +123,22 @@
 | FR-59 | Configuração da integração Jira no painel admin (URL, email, API token, projeto, tipos de issue) — credenciais criptografadas | Pendente |
 | FR-60 | Admin pode visualizar todos os feedbacks enviados; usuário vê apenas os próprios | Pendente |
 
+## NPS (Net Promoter Score)
+
+| ID | Requisito | Status |
+|----|-----------|--------|
+| FR-61 | Formulário de NPS personalizável: admin configura perguntas conforme necessidade | Pendente |
+| FR-62 | Disponibilização automática do NPS ao final de trilhas dentro da plataforma | Pendente |
+| FR-63 | Criação de NPS sob demanda com associação a eventos, aulas ou trilhas | Pendente |
+| FR-64 | Geração de QR Code público para acesso ao NPS (sem necessidade de login) | Pendente |
+| FR-65 | Área administrativa restrita para exibição de resultados: notas, avaliações e comentários | Pendente |
+| FR-66 | Transformar comentários do NPS em tarefas no módulo de sprints (com prazo, responsável e demais atributos) | Pendente |
+| FR-67 | Segmentação automática por nota: Leais (9-10), Neutros (7-8), Detratores (0-6) | Pendente |
+| FR-67.1 | Leais (9-10): clientes leais e satisfeitos | Pendente |
+| FR-67.2 | Neutros (7-8): satisfeitos, mas propensos à concorrência | Pendente |
+| FR-67.3 | Detratores (0-6): insatisfeitos | Pendente |
+| FR-68 | Cálculo do score NPS: % Leais − % Detratores | Pendente |
+
 ## Dados e Armazenamento
 
 | ID | Requisito | Status |
