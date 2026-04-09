@@ -95,9 +95,12 @@
 - [x] Nota geral (média ponderada)
 - [x] Gráfico radar por pilar
 - [ ] Gráfico radar com benchmark: média de notas de outras escolas do mesmo cluster sobreposta no radar
+- [ ] Gráfico radar com comparação de último diagnóstico feito: notas de útlimo diagnóstico do mesmo pilar sobreposta no radar
+- [ ] Porcentagem da variação da nota geral do último diagnóstico para o atual
+- [ ] Porcentagem da variação da nota de cada pilar e eixo do último diagnóstico para o atual
 - [x] Detalhamento por pilar e eixo
 - [x] Indicação visual de áreas críticas
-- [] Exportar PDF
+- [ ] Exportar PDF
 
 ### US-010: Histórico de diagnósticos
 
@@ -115,7 +118,7 @@
 - [x] Organizado por pilar e eixo
 - [x] Cada item mostra ferramentas e aulas sugeridas
 - [x] Priorizados por nota (piores = maior prioridade)
-- [] Admin pode editar/ajustar
+- [ ] Admin pode editar/ajustar
 
 ### US-012: Acompanhamento do plano de ação
 
@@ -264,6 +267,8 @@
 
 - [x] Criar com título, descrição, sprint, responsável, prazo, poker points
 - [x] Modal de edição com subtarefas
+- [ ] Clonagem de tarefas
+- [ ] Edição inline na visão de lista para: Nome da tarefa, responsável, poker, status
 - [x] Sprint fechada: campos read-only
 
 ### US-033: Responsáveis

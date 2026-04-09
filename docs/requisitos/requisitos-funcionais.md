@@ -43,10 +43,10 @@
 
 | ID | Requisito | Status |
 |----|-----------|--------|
-| FR-11 | Três tipos: Template, Score, Checklist | Parcial |
+| FR-11 | Quatro tipos: Template, Score, Checklist, Estática | Parcial |
 | FR-11.1 | Liberação híbrida: contrato + admin por escola | Implementado |
 | FR-12 | Auto-save de progresso | Pendente |
-| FR-13 | Histórico de versões de preenchimentos | Pendente |
+| FR-13 | Histórico de versões de preenchimentos | Implementado |
 | FR-14 | Exportação em PDF | Pendente |
 | FR-15 | Vincular a pilares e itens do plano | Implementado |
 

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claraval — Resultado do Diagnóstico (Comparativo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold-50:#fffbeb;--gold-100:#fef3c7;--gold-200:#fde68a;--gold-300:#fcd34d;--gold-400:#fbbf24;--gold-500:#f59e0b;--gold-600:#d97706;--gold-700:#b45309;
+  --navy-50:#f0f4f8;--navy-100:#d9e2ec;--navy-200:#bcccdc;--navy-300:#9fb3c8;--navy-400:#829ab1;--navy-500:#627d98;--navy-600:#486581;--navy-700:#334e68;--navy-800:#243b53;--navy-900:#102a43;--navy-950:#0a1929;
+  --success:#10b981;--success-light:#d1fae5;--danger:#ef4444;--danger-light:#fee2e2;
+  --cyan:#38bdf8;
+  --font-display:'Fraunces',serif;--font-body:'DM Sans',sans-serif;
+  --radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.05);--shadow-md:0 4px 6px -1px rgba(0,0,0,.1);--shadow-lg:0 10px 15px -3px rgba(0,0,0,.1);
+  --t-fast:150ms cubic-bezier(.4,0,.2,1);
+}
+body{font-family:var(--font-body);background:#f5f7fa;color:var(--navy-900);-webkit-font-smoothing:antialiased;line-height:1.5}
+
+.page{max-width:1024px;margin:0 auto;padding:28px 24px 60px}
+
+/* Back link */
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:.875rem;font-weight:500;color:var(--navy-500);text-decoration:none;margin-bottom:20px;transition:color var(--t-fast)}
+.back-link:hover{color:var(--navy-700)}
+.back-link svg{width:16px;height:16px}
+
+/* ═══════ HERO (exact replica + additions) ═══════ */
+.hero{position:relative;overflow:hidden;border-radius:20px;background:linear-gradient(135deg,var(--navy-900),var(--navy-950));padding:32px;color:white;margin-bottom:24px}
+.hero::before{content:'';position:absolute;top:-50%;right:-50%;width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,var(--gold-400) 0%,transparent 70%);opacity:.1;pointer-events:none}
+.hero-inner{position:relative;z-index:1}
+.hero-title{font-family:var(--font-display);font-size:.875rem;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-400);margin-bottom:4px}
+.hero-date{font-size:.75rem;color:rgba(255,255,255,.5);margin-bottom:24px}
+
+.hero-score-row{display:flex;align-items:center;gap:24px;margin-bottom:24px;flex-wrap:wrap}
+
+/* ScoreCircle replica */
+.score-circle{position:relative;width:120px;height:120px;flex-shrink:0}
+.score-circle svg{width:100%;height:100%;transform:rotate(-90deg)}
+.score-circle-bg{fill:none;stroke:rgba(255,255,255,.1);stroke-width:8}
+.score-circle-progress{fill:none;stroke:var(--gold-400);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1s ease-out}
+.score-circle-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.score-circle-val{font-family:var(--font-display);font-size:2rem;font-weight:700;color:white;display:block;line-height:1}
+.score-circle-sub{font-size:.75rem;color:rgba(255,255,255,.7)}
+
+.hero-details{flex:1;min-width:200px}
+.hero-details .score-label{font-size:.8125rem;color:rgba(255,255,255,.7);margin-bottom:6px}
+.level-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:999px;font-size:.75rem;font-weight:600;margin-bottom:8px}
+.badge-gold-glow{background:rgba(251,191,36,.2);color:var(--gold-400)}
+.hero-msg{font-size:.8125rem;color:rgba(255,255,255,.8);line-height:1.5}
+
+/* NEW: comparison chips in hero */
+.hero-comparison{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.comp-chip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:6px 12px;border-radius:var(--radius-sm);font-size:.75rem}
+.comp-chip-label{color:rgba(255,255,255,.5)}
+.comp-chip-val{font-weight:700;color:white}
+.comp-chip-delta{font-weight:700;display:inline-flex;align-items:center;gap:2px}
+.delta-up{color:#34d399}
+.delta-down{color:#f87171}
+.comp-chip-cluster{color:var(--cyan);font-weight:600}
+
+/* Meta badges */
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px}
+.meta-badge{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);padding:6px 12px;border-radius:var(--radius-sm);font-size:.75rem;color:rgba(255,255,255,.7)}
+.meta-badge svg{width:14px;height:14px;color:var(--gold-400)}
+.meta-badge-alert{background:rgba(239,68,68,.1);color:#f87171}
+
+/* ═══════ RADAR + PILLARS GRID ═══════ */
+.grid-2col{display:grid;gap:24px;grid-template-columns:1fr 1fr;margin-bottom:24px}
+@media(max-width:800px){.grid-2col{grid-template-columns:1fr}}
+
+/* ═══════ RADAR CARD (exact replica + comparison) ═══════ */
+.radar-card{display:flex;flex-direction:column;align-items:center;border-radius:20px;background:linear-gradient(135deg,var(--navy-900),var(--navy-950));padding:24px}
+.radar-card-title{align-self:flex-start;font-family:var(--font-display);font-size:1rem;font-weight:600;color:white;margin-bottom:4px}
+
+/* NEW: Radar mode toggle */
+.radar-mode-bar{align-self:flex-start;display:flex;gap:4px;margin-bottom:16px;background:rgba(255,255,255,.06);border-radius:999px;padding:3px}
+.radar-mode-btn{font-family:var(--font-body);font-size:.6875rem;font-weight:600;padding:5px 14px;border-radius:999px;border:none;cursor:pointer;transition:all var(--t-fast);color:rgba(255,255,255,.5);background:transparent}
+.radar-mode-btn:hover{color:rgba(255,255,255,.8)}
+.radar-mode-btn.active{background:var(--gold-400);color:var(--navy-900)}
+
+.radar-wrap{position:relative;width:340px;height:340px}
+canvas{display:block}
+
+/* Legend */
+.radar-legend{display:flex;gap:16px;margin-top:14px;flex-wrap:wrap;justify-content:center}
+.legend-item{display:flex;align-items:center;gap:6px;cursor:pointer;padding:4px 8px;border-radius:6px;transition:all var(--t-fast);user-select:none}
+.legend-item:hover{background:rgba(255,255,255,.06)}
+.legend-item.disabled{opacity:.3}
+.legend-swatch{width:20px;height:3px;border-radius:999px;flex-shrink:0}
+.legend-swatch-dash{border-top:2px dashed;background:none!important}
+.legend-swatch-dot{border-top:2px dotted;background:none!important}
+.legend-text{font-size:.6875rem;font-weight:600;color:rgba(255,255,255,.7)}
+
+/* ═══════ PILLAR ANALYSIS (exact replica + deltas) ═══════ */
+.pillar-section{display:flex;flex-direction:column}
+.pillar-section-title{font-family:var(--font-display);font-size:1.125rem;font-weight:600;color:var(--navy-900);margin-bottom:12px}
+.pillar-list{display:flex;flex-direction:column;gap:12px}
+
+.pillar-card{overflow:hidden;border-radius:16px;border:1px solid var(--navy-100);background:white;box-shadow:var(--shadow-sm);transition:box-shadow var(--t-fast)}
+.pillar-card:hover{box-shadow:var(--shadow-md)}
+
+.pillar-header{display:flex;align-items:center;gap:12px;padding:16px 20px;cursor:pointer;transition:background var(--t-fast);user-select:none}
+.pillar-header:hover{background:var(--navy-50)}
+
+.pillar-icon{width:40px;height:40px;border-radius:12px;background:var(--navy-900);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold-400)}
+.pillar-icon svg{width:20px;height:20px}
+
+.pillar-info{flex:1;min-width:0}
+.pillar-name-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pillar-name{font-family:var(--font-display);font-size:.875rem;font-weight:600;color:var(--navy-900)}
+.pillar-level{display:inline-flex;padding:2px 8px;border-radius:999px;font-size:.6875rem;font-weight:600}
+
+.pillar-bar-row{display:flex;align-items:center;gap:8px;margin-top:6px}
+.pillar-bar{flex:1;height:6px;background:var(--navy-100);border-radius:999px;overflow:hidden}
+.pillar-bar-fill{height:100%;border-radius:999px;transition:width 600ms ease}
+.pillar-score-val{font-size:.75rem;font-weight:700;color:var(--navy-700);min-width:24px}
+
+/* NEW: delta chips next to score */
+.pillar-deltas{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.pillar-delta{font-size:.6875rem;font-weight:600;padding:2px 7px;border-radius:4px;display:inline-flex;align-items:center;gap:2px}
+.pd-up{background:var(--success-light);color:#065f46}
+.pd-down{background:var(--danger-light);color:#991b1b}
+.pd-cluster{font-size:.6275rem;color:var(--navy-400)}
+.pd-cluster-up{color:#047857}
+.pd-cluster-down{color:var(--danger)}
+
+.pillar-chevron{width:20px;height:20px;color:var(--navy-400);transition:transform .25s ease;flex-shrink:0}
+.pillar-card.open .pillar-chevron{transform:rotate(180deg)}
+
+/* Expanded */
+.pillar-expand{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.pillar-card.open .pillar-expand{max-height:500px}
+.pillar-expand-inner{border-top:1px solid var(--navy-100);background:var(--navy-50);padding:16px 20px}
+
+.axis-row{margin-bottom:10px}
+.axis-row:last-child{margin-bottom:0}
+.axis-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.axis-name{font-size:.75rem;font-weight:500;color:var(--navy-700)}
+.axis-scores{display:flex;align-items:center;gap:8px;font-size:.75rem}
+.axis-current{font-weight:600;color:var(--navy-600)}
+.axis-current.critical{color:#ef4444}
+.axis-qcount{font-weight:400;color:var(--navy-400)}
+/* NEW: axis comparison values */
+.axis-prev{color:var(--navy-400);font-size:.6875rem}
+.axis-delta{font-weight:600;font-size:.6875rem}
+.axis-cluster-val{color:var(--cyan);font-size:.6875rem;font-weight:500}
+
+.axis-bar{height:8px;background:var(--navy-200);border-radius:999px;overflow:hidden}
+.axis-bar-fill{height:100%;border-radius:999px;transition:width 500ms ease}
+
+/* Cluster visibility */
+.cluster-el{transition:opacity .2s ease}
+.cluster-hidden .cluster-el{opacity:0;width:0;overflow:hidden;padding:0;margin:0;font-size:0}
+
+@media(max-width:600px){
+  .page{padding:16px 12px 48px}
+  .hero{padding:24px 20px}
+  .hero-score-row{flex-direction:column;align-items:flex-start}
+  .radar-wrap{width:280px;height:280px}
+  .pillar-header{flex-wrap:wrap;gap:8px}
+  .pillar-deltas{width:100%}
+}
+</style>
+</head>
+<body>
+
+<div class="page" id="root">
+
+  <!-- Back link -->
+  <a href="#" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Voltar ao Histórico
+  </a>
+
+  <!-- ═══════ HERO ═══════ -->
+  <div class="hero">
+    <div class="hero-inner">
+      <h2 class="hero-title">Resultado do Diagnóstico</h2>
+      <p class="hero-date">Finalizado em 05 de abril de 2026</p>
+
+      <div class="hero-score-row">
+        <!-- ScoreCircle -->
+        <div class="score-circle">
+          <svg viewBox="0 0 100 100">
+            <circle class="score-circle-bg" cx="50" cy="50" r="40"/>
+            <circle class="score-circle-progress" cx="50" cy="50" r="40"
+              stroke-dasharray="251.3" stroke-dashoffset="251.3" id="heroRing"/>
+          </svg>
+          <div class="score-circle-text">
+            <span class="score-circle-val" id="heroScoreVal">0.0</span>
+            <span class="score-circle-sub">de 5.0</span>
+          </div>
+        </div>
+
+        <div class="hero-details">
+          <p class="score-label">Pontuação Geral</p>
+          <div class="level-badge" style="background:rgba(52,211,153,.15);color:#34d399">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            +0.6 vs anterior (3.2)
+          </div>
+          <p class="hero-msg">Ótimo trabalho! Continue aprimorando os processos para alcançar a excelência.</p>
+        </div>
+      </div>
+
+      <div class="hero-meta">
+        <span class="meta-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>42/42 perguntas</span>
+        <span class="meta-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>5 pilares avaliados</span>
+        <span class="meta-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>05/04/2026</span>
+        <span class="meta-badge meta-badge-alert">2 pilar(es) crítico(s)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ 2-COL: Radar + Pillars ═══════ -->
+  <div class="grid-2col">
+
+    <!-- RADAR -->
+    <div class="radar-card">
+      <h3 class="radar-card-title">Visão por Pilar</h3>
+
+      <!-- NEW: Mode toggle -->
+      <div class="radar-mode-bar">
+        <button class="radar-mode-btn active" onclick="setRadarMode('evolucao',this)">Evolução própria</button>
+        <button class="radar-mode-btn" onclick="setRadarMode('benchmark',this)">Benchmark cluster</button>
+      </div>
+
+      <div class="radar-wrap">
+        <canvas id="radarChart" width="340" height="340"></canvas>
+      </div>
+
+      <div class="radar-legend" id="radarLegend"></div>
+    </div>
+
+    <!-- PILLARS -->
+    <div class="pillar-section">
+      <h3 class="pillar-section-title">Detalhamento por Pilar</h3>
+      <div class="pillar-list" id="pillarList"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ═══════ DATA ═══════
+const pillars = [
+  {
+    name:'Estratégia', icon:'compass',
+    score:4.2, prev:3.5, cluster:3.6,
+    axes:[
+      {name:'Visão',score:4.5,prev:3.8,cluster:3.7,q:5},
+      {name:'Planejamento',score:4.0,prev:3.3,cluster:3.5,q:4},
+      {name:'Metas',score:4.1,prev:3.5,cluster:3.6,q:3}
+    ]
+  },
+  {
+    name:'Processos', icon:'git-branch',
+    score:3.5, prev:3.0, cluster:3.2,
+    axes:[
+      {name:'Fluxos',score:3.8,prev:3.2,cluster:3.3,q:4},
+      {name:'Documentação',score:3.2,prev:2.8,cluster:3.1,q:3},
+      {name:'Padronização',score:3.5,prev:3.0,cluster:3.2,q:4}
+    ]
+  },
+  {
+    name:'Experiência do Cliente', icon:'heart',
+    score:3.8, prev:3.2, cluster:3.4,
+    axes:[
+      {name:'Atendimento',score:4.0,prev:3.5,cluster:3.5,q:4},
+      {name:'Satisfação',score:3.8,prev:3.0,cluster:3.4,q:3},
+      {name:'Comunicação',score:3.6,prev:3.1,cluster:3.3,q:3}
+    ]
+  },
+  {
+    name:'Pessoas', icon:'users',
+    score:4.0, prev:3.8, cluster:3.5,
+    axes:[
+      {name:'Capacitação',score:4.2,prev:3.9,cluster:3.6,q:4},
+      {name:'Engajamento',score:3.9,prev:3.7,cluster:3.4,q:3},
+      {name:'Liderança',score:3.9,prev:3.8,cluster:3.5,q:3}
+    ]
+  },
+  {
+    name:'Resultados', icon:'bar-chart',
+    score:3.5, prev:2.8, cluster:3.3,
+    axes:[
+      {name:'Financeiro',score:3.6,prev:2.8,cluster:3.4,q:3},
+      {name:'Acadêmico',score:3.5,prev:2.9,cluster:3.3,q:3},
+      {name:'Crescimento',score:3.4,prev:2.7,cluster:3.2,q:3}
+    ]
+  }
+];
+
+const pillarSvgs = {
+  'compass': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>',
+  'git-branch': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>',
+  'heart': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+  'users': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  'bar-chart': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>'
+};
+
+function getLevel(s){
+  if(s>=4.5) return {l:'Excelente',c:'text-emerald-400',bg:'emerald'};
+  if(s>=3.5) return {l:'Avançado',c:'text-blue-400',bg:'blue'};
+  if(s>=2.5) return {l:'Intermediário',c:'text-gold',bg:'gold'};
+  if(s>=1.5) return {l:'Básico',c:'text-orange',bg:'orange'};
+  return {l:'Inicial',c:'text-red',bg:'red'};
+}
+function levelStyle(bg){
+  const m={
+    emerald:{bg:'rgba(52,211,153,.1)',c:'#34d399'},
+    blue:{bg:'rgba(96,165,250,.1)',c:'#60a5fa'},
+    gold:{bg:'rgba(251,191,36,.1)',c:'var(--gold-400)'},
+    orange:{bg:'rgba(251,146,60,.1)',c:'#fb923c'},
+    red:{bg:'rgba(248,113,113,.1)',c:'#f87171'}
+  };
+  return m[bg]||m.gold;
+}
+function barColor(s){return s<=2?'#ef4444':s<=3?'var(--gold-400)':'#10b981'}
+
+// ═══════ HERO ANIMATION ═══════
+function animHero(){
+  const ring=document.getElementById('heroRing');
+  const circ=251.3;
+  const target=3.8/5;
+  setTimeout(()=>{ring.style.strokeDashoffset=circ*(1-target);},200);
+  // Counter
+  const el=document.getElementById('heroScoreVal');
+  const dur=900,start=performance.now();
+  (function frame(now){
+    const p=Math.min((now-start)/dur,1);
+    const e=1-Math.pow(1-p,3);
+    el.textContent=(e*3.8).toFixed(1);
+    if(p<1)requestAnimationFrame(frame);
+  })(start);
+}
+animHero();
+
+// ═══════ RADAR CHART ═══════
+const canvas=document.getElementById('radarChart');
+const ctx=canvas.getContext('2d');
+const dpr=window.devicePixelRatio||1;
+canvas.width=340*dpr;canvas.height=340*dpr;
+canvas.style.width='340px';canvas.style.height='340px';
+ctx.scale(dpr,dpr);
+
+const cx=170,cy=170,maxR=130,n=5;
+function angleFor(i){return(Math.PI*2/n)*i-Math.PI/2}
+function ptFor(i,val,prog){const a=angleFor(i);const r=(val/5)*maxR*prog;return{x:cx+Math.cos(a)*r,y:cy+Math.sin(a)*r}}
+
+// Labels for radar (split long names)
+const radarLabels=pillars.map(p=>{
+  const w=p.name.split(' ');
+  if(w.length<=2)return[p.name];
+  const m=Math.ceil(w.length/2);
+  return[w.slice(0,m).join(' '),w.slice(m).join(' ')];
+});
+
+// Modes
+let radarMode='evolucao'; // 'evolucao' | 'benchmark'
+let datasetVisibility={atual:true,comp:true};
+
+function getDatasets(){
+  if(radarMode==='evolucao'){
+    return [
+      {key:'atual',label:'Atual (Abr 2026)',vals:pillars.map(p=>p.score),stroke:'#fbbf24',fill:'rgba(251,191,36,.2)',dash:[],pointR:4},
+      {key:'comp',label:'Anterior (Jan 2026)',vals:pillars.map(p=>p.prev),stroke:'rgba(255,255,255,.45)',fill:null,dash:[6,4],pointR:0}
+    ];
+  } else {
+    return [
+      {key:'atual',label:'Sua Escola',vals:pillars.map(p=>p.score),stroke:'#fbbf24',fill:'rgba(251,191,36,.2)',dash:[],pointR:4},
+      {key:'comp',label:'Média Cluster',vals:pillars.map(p=>p.cluster),stroke:'#38bdf8',fill:'rgba(56,189,248,.08)',dash:[4,3],pointR:0}
+    ];
+  }
+}
+
+let animProg=0;
+function drawRadar(prog){
+  ctx.clearRect(0,0,340,340);
+  // Grid pentagons
+  for(let s=1;s<=5;s++){
+    ctx.beginPath();
+    const r=(s/5)*maxR;
+    for(let i=0;i<n;i++){const a=angleFor(i);const x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)}
+    ctx.closePath();ctx.strokeStyle='rgba(255,255,255,.07)';ctx.lineWidth=1;ctx.stroke();
+  }
+  // Axis lines
+  for(let i=0;i<n;i++){const a=angleFor(i);ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*maxR,cy+Math.sin(a)*maxR);ctx.strokeStyle='rgba(255,255,255,.05)';ctx.lineWidth=1;ctx.stroke()}
+
+  // Datasets (draw in reverse so 'atual' is on top)
+  const ds=getDatasets();
+  [...ds].reverse().forEach(d=>{
+    if(!datasetVisibility[d.key])return;
+    ctx.beginPath();ctx.setLineDash(d.dash);
+    for(let i=0;i<n;i++){const p=ptFor(i,d.vals[i],prog);i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y)}
+    ctx.closePath();
+    if(d.fill){ctx.fillStyle=d.fill;ctx.fill()}
+    ctx.strokeStyle=d.stroke;ctx.lineWidth=2;ctx.stroke();ctx.setLineDash([]);
+    if(d.pointR>0){
+      for(let i=0;i<n;i++){const p=ptFor(i,d.vals[i],prog);ctx.beginPath();ctx.arc(p.x,p.y,d.pointR,0,Math.PI*2);ctx.fillStyle=d.stroke;ctx.fill();ctx.strokeStyle='rgba(0,0,0,.15)';ctx.lineWidth=1;ctx.stroke()}
+    }
+  });
+
+  // Labels
+  ctx.setLineDash([]);
+  const lR=maxR+22;
+  for(let i=0;i<n;i++){
+    const a=angleFor(i);
+    const x=cx+Math.cos(a)*lR,y=cy+Math.sin(a)*lR;
+    ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.font='600 10px "DM Sans",sans-serif';ctx.fillStyle='rgba(255,255,255,.85)';
+    radarLabels[i].forEach((line,li)=>{ctx.fillText(line,x,y+(li-((radarLabels[i].length-1)/2))*13)});
+  }
+  // Ticks
+  ctx.font='500 9px "DM Sans",sans-serif';ctx.fillStyle='rgba(255,255,255,.3)';ctx.textAlign='left';
+  for(let s=1;s<=5;s++){ctx.fillText(s.toString(),cx+3,cy-(s/5)*maxR+3)}
+}
+
+function animateRadar(){
+  const dur=800,start=performance.now();
+  (function frame(now){
+    animProg=Math.min((now-start)/dur,1);
+    const e=1-Math.pow(1-animProg,3);
+    drawRadar(e);
+    if(animProg<1)requestAnimationFrame(frame);
+  })(start);
+}
+
+function renderLegend(){
+  const ds=getDatasets();
+  const el=document.getElementById('radarLegend');
+  el.innerHTML=ds.map(d=>{
+    const isDash=d.dash.length>0;
+    const swatchCls=d.key==='comp'&&radarMode==='evolucao'?'legend-swatch-dash':d.key==='comp'?'legend-swatch-dot':d.key==='meta'?'legend-swatch-dot':'';
+    const swatchStyle=isDash?`border-color:${d.stroke}`:`background:${d.stroke}`;
+    const disabled=!datasetVisibility[d.key]?'disabled':'';
+    return `<div class="legend-item ${disabled}" data-key="${d.key}" onclick="toggleDS('${d.key}',this)">
+      <div class="legend-swatch ${swatchCls}" style="${swatchStyle}"></div>
+      <span class="legend-text">${d.label}</span>
+    </div>`;
+  }).join('');
+}
+
+function setRadarMode(mode,btn){
+  radarMode=mode;
+  document.querySelectorAll('.radar-mode-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderLegend();
+  drawRadar(animProg);
+}
+
+function toggleDS(key,el){
+  datasetVisibility[key]=!datasetVisibility[key];
+  el.classList.toggle('disabled');
+  drawRadar(animProg);
+}
+
+renderLegend();
+animateRadar();
+
+// ═══════ PILLARS ═══════
+let expandedPillar=0;
+function renderPillars(){
+  const el=document.getElementById('pillarList');
+  el.innerHTML=pillars.map((p,idx)=>{
+    const lv=getLevel(p.score);
+    const ls=levelStyle(lv.bg);
+    const d=p.score-p.prev;
+    const open=idx===expandedPillar?'open':'';
+    const pct=(p.score/5*100);
+
+    const axesHTML=p.axes.map(ax=>{
+      const ad=ax.score-ax.prev;
+      return `<div class="axis-row">
+        <div class="axis-top">
+          <span class="axis-name">${ax.name}</span>
+          <div class="axis-scores">
+            <span class="axis-current ${ax.score<=2?'critical':''}">${ax.score.toFixed(1)}</span>
+            <span class="axis-qcount">(${ax.q}p)</span>
+            <span class="axis-delta" style="color:${ad>=0?'#065f46':'#991b1b'}">${ad>0?'+':''}${ad.toFixed(1)}</span>
+          </div>
+        </div>
+        <div class="axis-bar"><div class="axis-bar-fill" style="width:${ax.score/5*100}%;background:${barColor(ax.score)}"></div></div>
+      </div>`;
+    }).join('');
+
+    return `<div class="pillar-card ${open}" data-idx="${idx}">
+      <div class="pillar-header" onclick="togglePillar(${idx})">
+        <div class="pillar-icon">${pillarSvgs[p.icon]}</div>
+        <div class="pillar-info">
+          <div class="pillar-name-row">
+            <span class="pillar-name">${p.name}</span>
+            <span class="pillar-level" style="background:${ls.bg};color:${ls.c}">${lv.l}</span>
+          </div>
+          <div class="pillar-bar-row">
+            <div class="pillar-bar"><div class="pillar-bar-fill" style="width:${pct}%;background:${barColor(p.score)}"></div></div>
+            <span class="pillar-score-val">${p.score.toFixed(1)}</span>
+          </div>
+        </div>
+        <div class="pillar-deltas">
+          <span class="pillar-delta ${d>=0?'pd-up':'pd-down'}">${d>0?'+':''}${d.toFixed(1)} ${d>=0?'↑':'↓'}</span>
+        </div>
+        <svg class="pillar-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="pillar-expand">
+        <div class="pillar-expand-inner">${axesHTML}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function togglePillar(idx){
+  expandedPillar=expandedPillar===idx?-1:idx;
+  renderPillars();
+}
+
+renderPillars();
+</script>
+</body>
+</html>

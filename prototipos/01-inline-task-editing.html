@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claraval — Edição Inline de Tarefas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold-50: #fffbeb; --gold-100: #fef3c7; --gold-200: #fde68a;
+    --gold-300: #fcd34d; --gold-400: #fbbf24; --gold-500: #f59e0b;
+    --gold-600: #d97706; --gold-700: #b45309;
+    --navy-50: #f0f4f8; --navy-100: #d9e2ec; --navy-200: #bcccdc;
+    --navy-300: #9fb3c8; --navy-400: #829ab1; --navy-500: #627d98;
+    --navy-600: #486581; --navy-700: #334e68; --navy-800: #243b53;
+    --navy-900: #102a43; --navy-950: #0a1929;
+    --success: #10b981; --success-light: #d1fae5;
+    --danger: #ef4444; --danger-light: #fee2e2;
+    --font-display: 'Fraunces', serif;
+    --font-body: 'DM Sans', sans-serif;
+    --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: #f5f7fa;
+    color: var(--navy-900);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Page wrapper ── */
+  .page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px;
+  }
+
+  /* ── Sprint header bar ── */
+  .sprint-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 0 4px;
+  }
+  .sprint-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .sprint-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--navy-900);
+    letter-spacing: -0.01em;
+  }
+  .sprint-school {
+    color: var(--navy-400);
+    font-weight: 500;
+    font-size: 1.05rem;
+  }
+  .task-count-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--gold-100);
+    color: var(--gold-700);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .sprint-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--navy-100);
+    background: white;
+    color: var(--navy-400);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+  .view-btn:hover { border-color: var(--navy-200); color: var(--navy-600); }
+  .view-btn.active {
+    background: var(--navy-900);
+    border-color: var(--navy-900);
+    color: var(--gold-400);
+  }
+
+  /* ── Table card ── */
+  .table-card {
+    background: white;
+    border: 1px solid var(--navy-100);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  .table-wrap {
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 820px;
+  }
+
+  /* ── Header ── */
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--navy-50);
+    padding: 11px 14px;
+    text-align: left;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--navy-500);
+    border-bottom: 1px solid var(--navy-100);
+    white-space: nowrap;
+    user-select: none;
+  }
+  thead th:first-child { padding-left: 20px; }
+
+  /* ── Rows ── */
+  tbody tr {
+    border-bottom: 1px solid #f0f3f7;
+    transition: background var(--transition-fast);
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #f8fafb; }
+  tbody tr.row-editing { background: #fffdf5; }
+
+  td {
+    padding: 10px 14px;
+    font-size: 0.875rem;
+    vertical-align: middle;
+    position: relative;
+  }
+  td:first-child { padding-left: 20px; }
+
+  /* ── Editable cell ── */
+  .cell-editable {
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all var(--transition-fast);
+    position: relative;
+  }
+  .cell-editable .cell-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    border: 1.5px solid transparent;
+    transition: all var(--transition-fast);
+    min-height: 34px;
+  }
+  tbody tr:hover .cell-editable .cell-display {
+    border-color: var(--navy-100);
+  }
+  .cell-editable .edit-hint {
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    color: var(--navy-300);
+    flex-shrink: 0;
+    width: 14px; height: 14px;
+  }
+  tbody tr:hover .cell-editable .edit-hint { opacity: 1; }
+
+  .cell-editable.editing .cell-display { display: none; }
+  .cell-editable .cell-editor { display: none; }
+  .cell-editable.editing .cell-editor {
+    display: flex;
+    align-items: center;
+  }
+
+  /* ── Inline text input ── */
+  .inline-input {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--navy-900);
+    border: 1.5px solid var(--gold-400);
+    border-radius: 6px;
+    padding: 5px 8px;
+    width: 100%;
+    outline: none;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
+    transition: box-shadow var(--transition-fast);
+  }
+  .inline-input:focus {
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25);
+  }
+
+  /* ── Inline date input ── */
+  .inline-date {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    color: var(--navy-700);
+    border: 1.5px solid var(--gold-400);
+    border-radius: 6px;
+    padding: 4px 8px;
+    outline: none;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
+    cursor: pointer;
+    min-width: 140px;
+  }
+
+  /* ── Dropdown ── */
+  .dropdown-anchor { position: relative; }
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: 50;
+    min-width: 180px;
+    background: white;
+    border: 1px solid var(--navy-100);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    padding: 4px;
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition: all 120ms ease;
+  }
+  .dropdown.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    color: var(--navy-700);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    white-space: nowrap;
+  }
+  .dropdown-item:hover { background: var(--navy-50); }
+  .dropdown-item.selected { background: var(--gold-50); color: var(--gold-700); font-weight: 600; }
+
+  /* ── Avatar ── */
+  .avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    font-size: 0.625rem;
+    font-weight: 700;
+    color: var(--navy-900);
+    flex-shrink: 0;
+    letter-spacing: -0.02em;
+  }
+  .avatar-lg { width: 30px; height: 30px; font-size: 0.6875rem; }
+
+  /* ── Status badge ── */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .status-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .status-a-fazer { background: var(--gold-50); color: var(--gold-700); }
+  .status-a-fazer .status-dot { background: var(--gold-500); }
+  .status-fazendo { background: #dbeafe; color: #1d4ed8; }
+  .status-fazendo .status-dot { background: #3b82f6; }
+  .status-concluido { background: var(--success-light); color: #065f46; }
+  .status-concluido .status-dot { background: var(--success); }
+
+  /* ── Origin badge ── */
+  .origin-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+  }
+  .origin-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .origin-sprint { background: #eef2ff; color: #4338ca; }
+  .origin-sprint .origin-dot { background: #6366f1; }
+  .origin-cla { background: var(--gold-50); color: var(--gold-700); }
+  .origin-cla .origin-dot { background: var(--gold-400); }
+
+  /* ── Poker chip ── */
+  .poker-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--navy-50);
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--navy-700);
+  }
+  .poker-diamond {
+    width: 12px; height: 12px;
+    color: var(--gold-500);
+  }
+
+  /* ── Date display ── */
+  .date-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8125rem;
+    color: var(--navy-500);
+  }
+  .date-display svg { width: 14px; height: 14px; color: var(--navy-300); }
+  .date-overdue { color: var(--danger); }
+  .date-overdue svg { color: var(--danger); }
+
+  /* ── Task name ── */
+  .task-name {
+    font-weight: 600;
+    color: var(--navy-900);
+    line-height: 1.35;
+  }
+  .task-kr {
+    font-size: 0.75rem;
+    color: var(--navy-400);
+    margin-top: 1px;
+  }
+
+  /* ── Checkbox column ── */
+  .check-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid var(--navy-200);
+    background: white;
+    cursor: pointer;
+    color: var(--navy-300);
+    transition: all var(--transition-fast);
+  }
+  .check-btn:hover {
+    border-color: var(--success);
+    color: var(--success);
+    background: #ecfdf5;
+  }
+  .check-btn.checked {
+    border-color: var(--success);
+    background: var(--success);
+    color: white;
+  }
+
+  /* ── Responsiveness ── */
+  @media (max-width: 768px) {
+    .page { padding: 16px 12px; }
+    .sprint-bar { flex-direction: column; align-items: flex-start; gap: 10px; }
+  }
+
+  /* ── Overlay to close dropdowns ── */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: none;
+  }
+  .overlay.active { display: block; }
+
+  /* ── Row completed state ── */
+  tbody tr.completed td { opacity: 0.5; }
+  tbody tr.completed .task-name { text-decoration: line-through; }
+
+  /* ── Subtle animation on edit save ── */
+  @keyframes savePulse {
+    0% { background: rgba(251,191,36,0.1); }
+    100% { background: transparent; }
+  }
+  .cell-saved {
+    animation: savePulse 600ms ease forwards;
+  }
+
+  /* ── Tooltip ── */
+  .hint-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 20px;
+    border-top: 1px solid var(--navy-100);
+    background: var(--navy-50);
+    font-size: 0.75rem;
+    color: var(--navy-400);
+  }
+  .hint-bar kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    border: 1px solid var(--navy-200);
+    background: white;
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--navy-600);
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <!-- Sprint header -->
+  <div class="sprint-bar">
+    <div class="sprint-bar-left">
+      <span class="sprint-title">Sprint 4</span>
+      <span class="sprint-school">— Escola Alpha</span>
+      <span class="task-count-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+        8 tarefas
+      </span>
+    </div>
+    <div class="sprint-bar-right">
+      <button class="view-btn" title="Kanban">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+      </button>
+      <button class="view-btn active" title="Lista">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      </button>
+      <button class="view-btn" title="Calendário">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Table card -->
+  <div class="table-card">
+    <div class="table-wrap">
+      <table id="taskTable">
+        <thead>
+          <tr>
+            <th style="width:30%">Tarefa</th>
+            <th style="width:10%">Origem</th>
+            <th style="width:18%">Responsável</th>
+            <th style="width:8%">Poker</th>
+            <th style="width:12%">Prazo</th>
+            <th style="width:14%">Status</th>
+            <th style="width:40px"></th>
+          </tr>
+        </thead>
+        <tbody id="taskBody"></tbody>
+      </table>
+    </div>
+    <div class="hint-bar">
+      <span>Clique em qualquer célula para editar</span>
+      <span><kbd>Enter</kbd> salvar</span>
+      <span><kbd>Esc</kbd> cancelar</span>
+      <span><kbd>Tab</kbd> próximo campo</span>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay for closing dropdowns -->
+<div class="overlay" id="overlay"></div>
+
+<script>
+// ── SVG icons ──
+const icons = {
+  pencil: `<svg class="edit-hint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>`,
+  diamond: `<svg class="poker-diamond" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 12l10 10 10-10L12 2z"/></svg>`,
+  timer: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  check: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+  chevron: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`,
+};
+
+// ── Gradient colors for avatars ──
+const avatarColors = [
+  'linear-gradient(135deg, #fcd34d, #f59e0b)',
+  'linear-gradient(135deg, #93c5fd, #3b82f6)',
+  'linear-gradient(135deg, #6ee7b7, #10b981)',
+  'linear-gradient(135deg, #c4b5fd, #8b5cf6)',
+  'linear-gradient(135deg, #fca5a5, #ef4444)',
+];
+
+const users = [
+  { name: 'Ana Silva', initials: 'AS', color: avatarColors[0] },
+  { name: 'Carlos Santos', initials: 'CS', color: avatarColors[1] },
+  { name: 'Marina Costa', initials: 'MC', color: avatarColors[2] },
+  { name: 'Pedro Oliveira', initials: 'PO', color: avatarColors[3] },
+  { name: 'Julia Ferreira', initials: 'JF', color: avatarColors[4] },
+];
+
+const statuses = [
+  { key: 'A_FAZER', label: 'A Fazer', cls: 'status-a-fazer' },
+  { key: 'FAZENDO', label: 'Fazendo', cls: 'status-fazendo' },
+  { key: 'CONCLUIDO', label: 'Concluído', cls: 'status-concluido' },
+];
+
+const pokerValues = [1, 2, 3, 5, 8, 13, 21];
+
+const tasks = [
+  { id: 1, name: 'Revisar plano pedagógico Q2', kr: 'KR: Estratégia 2.1', origin: 'SPRINT', user: 0, poker: 5, date: '2026-04-15', status: 'FAZENDO', done: false },
+  { id: 2, name: 'Implementar dashboard de métricas', kr: '', origin: 'SPRINT', user: 1, poker: 13, date: '2026-04-18', status: 'A_FAZER', done: false },
+  { id: 3, name: 'Configurar integração com sistema de notas', kr: 'KR: Processos 1.3', origin: 'PLANO_CLA', user: 2, poker: 8, date: '2026-04-12', status: 'FAZENDO', done: false },
+  { id: 4, name: 'Atualizar documentação de processos', kr: '', origin: 'SPRINT', user: 3, poker: 3, date: '2026-04-20', status: 'A_FAZER', done: false },
+  { id: 5, name: 'Preparar relatório trimestral', kr: '', origin: 'PLANO_CLA', user: 0, poker: 5, date: '2026-04-10', status: 'CONCLUIDO', done: true },
+  { id: 6, name: 'Treinar equipe no novo módulo', kr: 'KR: Pessoas 3.2', origin: 'SPRINT', user: 4, poker: 8, date: '2026-04-22', status: 'A_FAZER', done: false },
+  { id: 7, name: 'Mapear jornada do usuário', kr: '', origin: 'PLANO_CLA', user: 2, poker: 5, date: '2026-04-25', status: 'A_FAZER', done: false },
+  { id: 8, name: 'Otimizar performance do carregamento', kr: '', origin: 'SPRINT', user: 1, poker: 21, date: '2026-04-30', status: 'FAZENDO', done: false },
+];
+
+// ── State ──
+let activeEditor = null; // { taskId, field, el }
+const overlay = document.getElementById('overlay');
+
+function closeActiveEditor(save = true) {
+  if (!activeEditor) return;
+  const { taskId, field, el } = activeEditor;
+  if (save && el._save) el._save();
+  el.classList.remove('editing');
+  const row = el.closest('tr');
+  if (row) row.classList.remove('row-editing');
+  // Close any open dropdown
+  const dd = el.querySelector('.dropdown');
+  if (dd) dd.classList.remove('open');
+  overlay.classList.remove('active');
+  activeEditor = null;
+}
+
+function openEditor(taskId, field, cellEl) {
+  if (activeEditor && activeEditor.taskId === taskId && activeEditor.field === field) return;
+  closeActiveEditor(true);
+  cellEl.classList.add('editing');
+  const row = cellEl.closest('tr');
+  if (row) row.classList.add('row-editing');
+  activeEditor = { taskId, field, el: cellEl };
+
+  // Focus input if text
+  const input = cellEl.querySelector('.inline-input, .inline-date');
+  if (input) { input.focus(); input.select && input.select(); }
+
+  // Open dropdown if dropdown type
+  const dd = cellEl.querySelector('.dropdown');
+  if (dd) {
+    requestAnimationFrame(() => dd.classList.add('open'));
+    overlay.classList.add('active');
+  }
+}
+
+overlay.addEventListener('click', () => closeActiveEditor(true));
+
+function getTask(id) { return tasks.find(t => t.id === id); }
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00');
+  return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`;
+}
+
+function isOverdue(dateStr) {
+  return new Date(dateStr) < new Date('2026-04-08');
+}
+
+function flashSaved(el) {
+  const display = el.querySelector('.cell-display');
+  if (display) {
+    display.classList.add('cell-saved');
+    setTimeout(() => display.classList.remove('cell-saved'), 650);
+  }
+}
+
+// ── Render ──
+function renderTable() {
+  const tbody = document.getElementById('taskBody');
+  tbody.innerHTML = '';
+
+  tasks.forEach(task => {
+    const tr = document.createElement('tr');
+    if (task.done) tr.classList.add('completed');
+    const user = users[task.user];
+    const status = statuses.find(s => s.key === task.status);
+    const overdue = isOverdue(task.date) && task.status !== 'CONCLUIDO';
+
+    tr.innerHTML = `
+      <!-- Tarefa -->
+      <td>
+        <div class="cell-editable dropdown-anchor" data-task="${task.id}" data-field="name">
+          <div class="cell-display">
+            <div style="flex:1;min-width:0">
+              <div class="task-name">${task.name}</div>
+              ${task.kr ? `<div class="task-kr">${task.kr}</div>` : ''}
+            </div>
+            ${icons.pencil}
+          </div>
+          <div class="cell-editor">
+            <input class="inline-input" type="text" value="${task.name}" />
+          </div>
+        </div>
+      </td>
+
+      <!-- Origem -->
+      <td>
+        <span class="origin-badge ${task.origin === 'SPRINT' ? 'origin-sprint' : 'origin-cla'}">
+          <span class="origin-dot"></span>
+          ${task.origin === 'SPRINT' ? 'Sprint' : 'Plano CLA'}
+        </span>
+      </td>
+
+      <!-- Responsável -->
+      <td>
+        <div class="cell-editable dropdown-anchor" data-task="${task.id}" data-field="user">
+          <div class="cell-display">
+            <span class="avatar" style="background:${user.color}">${user.initials}</span>
+            <span style="color:var(--navy-700);font-size:0.8125rem;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${user.name}</span>
+            ${icons.pencil}
+          </div>
+          <div class="cell-editor">
+            <div class="dropdown" style="min-width:200px">
+              ${users.map((u, i) => `
+                <div class="dropdown-item ${i === task.user ? 'selected' : ''}" data-value="${i}">
+                  <span class="avatar" style="background:${u.color};width:24px;height:24px;font-size:0.6rem">${u.initials}</span>
+                  ${u.name}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      </td>
+
+      <!-- Poker -->
+      <td>
+        <div class="cell-editable dropdown-anchor" data-task="${task.id}" data-field="poker">
+          <div class="cell-display">
+            <span class="poker-chip">${icons.diamond} ${task.poker}</span>
+            ${icons.pencil}
+          </div>
+          <div class="cell-editor">
+            <div class="dropdown" style="min-width:100px">
+              ${pokerValues.map(v => `
+                <div class="dropdown-item ${v === task.poker ? 'selected' : ''}" data-value="${v}">
+                  <span style="color:var(--gold-500);font-size:0.75rem">◆</span>
+                  ${v}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      </td>
+
+      <!-- Prazo -->
+      <td>
+        <div class="cell-editable dropdown-anchor" data-task="${task.id}" data-field="date">
+          <div class="cell-display">
+            <span class="date-display ${overdue ? 'date-overdue' : ''}">${icons.timer} ${formatDate(task.date)}</span>
+            ${icons.pencil}
+          </div>
+          <div class="cell-editor">
+            <input class="inline-date" type="date" value="${task.date}" />
+          </div>
+        </div>
+      </td>
+
+      <!-- Status -->
+      <td>
+        <div class="cell-editable dropdown-anchor" data-task="${task.id}" data-field="status">
+          <div class="cell-display">
+            <span class="status-badge ${status.cls}"><span class="status-dot"></span>${status.label}</span>
+            ${icons.pencil}
+          </div>
+          <div class="cell-editor">
+            <div class="dropdown" style="min-width:160px">
+              ${statuses.map(s => `
+                <div class="dropdown-item ${s.key === task.status ? 'selected' : ''}" data-value="${s.key}">
+                  <span class="status-dot" style="background:${s.key === 'A_FAZER' ? 'var(--gold-500)' : s.key === 'FAZENDO' ? '#3b82f6' : 'var(--success)'}"></span>
+                  ${s.label}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      </td>
+
+      <!-- Check -->
+      <td style="text-align:center">
+        <button class="check-btn ${task.done ? 'checked' : ''}" data-task="${task.id}" title="Marcar como concluída">
+          ${task.done ? icons.check : ''}
+        </button>
+      </td>
+    `;
+
+    tbody.appendChild(tr);
+  });
+
+  // ── Bind events ──
+  bindEvents();
+}
+
+function bindEvents() {
+  // Editable cells
+  document.querySelectorAll('.cell-editable').forEach(cell => {
+    const taskId = parseInt(cell.dataset.task);
+    const field = cell.dataset.field;
+    const task = getTask(taskId);
+
+    // Click to open
+    cell.querySelector('.cell-display').addEventListener('click', (e) => {
+      e.stopPropagation();
+      openEditor(taskId, field, cell);
+    });
+
+    // Field-specific logic
+    if (field === 'name') {
+      const input = cell.querySelector('.inline-input');
+      cell._save = () => {
+        if (input.value.trim() && input.value !== task.name) {
+          task.name = input.value.trim();
+          flashSaved(cell);
+        }
+        renderTable();
+      };
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { closeActiveEditor(true); }
+        if (e.key === 'Escape') { input.value = task.name; closeActiveEditor(false); renderTable(); }
+        if (e.key === 'Tab') { e.preventDefault(); closeActiveEditor(true); }
+      });
+    }
+
+    if (field === 'date') {
+      const input = cell.querySelector('.inline-date');
+      cell._save = () => {
+        if (input.value && input.value !== task.date) {
+          task.date = input.value;
+          flashSaved(cell);
+        }
+        renderTable();
+      };
+      input.addEventListener('change', () => closeActiveEditor(true));
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { closeActiveEditor(false); renderTable(); }
+      });
+    }
+
+    if (field === 'user' || field === 'poker' || field === 'status') {
+      cell._save = () => {};
+      cell.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const val = item.dataset.value;
+          if (field === 'user') task.user = parseInt(val);
+          if (field === 'poker') task.poker = parseInt(val);
+          if (field === 'status') {
+            task.status = val;
+            task.done = val === 'CONCLUIDO';
+          }
+          closeActiveEditor(false);
+          renderTable();
+        });
+      });
+    }
+  });
+
+  // Check buttons
+  document.querySelectorAll('.check-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const taskId = parseInt(btn.dataset.task);
+      const task = getTask(taskId);
+      task.done = !task.done;
+      task.status = task.done ? 'CONCLUIDO' : 'A_FAZER';
+      renderTable();
+    });
+  });
+}
+
+// ── Global keyboard ──
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && activeEditor) {
+    closeActiveEditor(false);
+    renderTable();
+  }
+});
+
+// Init
+renderTable();
+</script>
+</body>
+</html>

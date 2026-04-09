@@ -61,14 +61,13 @@ markdown_extensions:
 
 nav:
   - Início: index.md
-  - PRD: prd.md
-  - Arquitetura:
+  - Arquitetura de Software:
       - Visão Geral: arquitetura/visao-geral.md
       - Frontend: arquitetura/frontend.md
       - Backend: arquitetura/backend.md
       - Banco de Dados: arquitetura/banco-de-dados.md
       - Infraestrutura: arquitetura/infraestrutura.md
-  - API:
+  - Documentação da API:
       - Visão Geral: api/index.md
       - Autenticação: api/autenticacao.md
       - Escolas: api/escolas.md
@@ -81,11 +80,12 @@ nav:
       - Tarefas e Sprints: api/tarefas.md
       - Live Streaming: api/live.md
       - Outros: api/outros.md
-  - Requisitos:
+  - Requisitos de Software:
       - User Stories: requisitos/user-stories.md
       - Requisitos Funcionais: requisitos/requisitos-funcionais.md
-      - Débito Técnico: requisitos/debito-tecnico.md
       - Jornadas de Usuário: requisitos/jornadas-usuario.md
+  - Testes:
+      - "Release v2.0": testes/release-v2.md
   - Padrões:
       - Frontend: padroes/frontend.md
       - Backend: padroes/backend.md
